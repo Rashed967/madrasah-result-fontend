@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         primary: ['Inter', ...defaultTheme.fontFamily.sans],
+        'noto-serif-bengali': ['var(--font-noto-serif-bengali)'],
       },
       colors: {
         primary: {

@@ -11,13 +11,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const response = await fetch('http://localhost:5000/search', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      'https://madrasah-result-backend.vercel.app/search',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Backend responded with status: ${response.status}`);

@@ -66,6 +66,8 @@ export default function SearchPage() {
         <div className='mb-8 text-center mt-5'>
           <Image
             src='/images/logo.jpg'
+            width={80}
+            height={80}
             alt='Madrasah Logo'
             className='mx-auto mb-6 h-20 rounded-full'
           />
@@ -85,7 +87,7 @@ export default function SearchPage() {
               type='text'
               value={rollNo}
               onChange={(e) => setRollNo(e.target.value)}
-              placeholder='রোল নম্বর লিখুন'
+              placeholder='রেজিস্ট্রেশন নম্বর লিখুন'
               className='rounded-lg border border-gray-300 px-4 py-1 text-sm font-noto-serif-bengali'
             />
             <button
@@ -102,38 +104,82 @@ export default function SearchPage() {
 
         {result && (
           <div className='result-container text-sm font-noto-serif-bengali'>
-            <div className='mb-6 grid grid-cols-2 gap-4'>
-              <div>
-                <p>
-                  <span className='font-semibold'>রোল নম্বর:</span>{' '}
-                  {toBengaliNumber(result.rollNo)}
-                </p>
-                <p>
-                  <span className='font-semibold'>রেজি. নং:</span>{' '}
-                  {toBengaliNumber(result.registrationNo)}
-                </p>
-                <p>
-                  <span className='font-semibold'>নাম:</span> {result.name}
-                </p>
-                <p>
-                  <span className='font-semibold'>পিতার নাম:</span>{' '}
-                  {result.fatherName}
-                </p>
-              </div>
-              <div>
-                <p>
-                  <span className='font-semibold'>জন্ম তারিখ:</span>{' '}
-                  {toBengaliNumber(result.dateOfBirth)}
-                </p>
-                <p>
-                  <span className='font-semibold'>শ্রেণী:</span>{' '}
-                  {toBengaliNumber(result.class)}
-                </p>
-                <p>
-                  <span className='font-semibold'>বিভাগ:</span>{' '}
-                  {result.department}
-                </p>
-              </div>
+            <div>
+              <h2 className='text-xl font-bold text-green-800 text-center mb-4 font-noto-serif-bengali'>
+                {result.department}
+              </h2>
+            </div>
+            <table className='w-full border-collapse mb-6'>
+              <tbody>
+                <tr className=' border-b border-gray-300 '>
+                  <td className=' px-4 py-2 text-sm '>
+                    <div className='w-full sm:w-24  border-gray-300 inline-block font-semibold'>
+                      রোল নম্বর
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {toBengaliNumber(result.rollNo)}
+                  </td>
+                  <td className='  px-4 py-2 text-sm'></td>
+                  <td className='  px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      রেজি. নং
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {toBengaliNumber(result.registrationNo)}
+                  </td>
+                  <td className='   px-4 py-2 text-sm'></td>
+                </tr>
+                <tr className='border-b border-gray-300'>
+                  <td className=' px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>নাম</div>
+                    <span className='pr-4'>: </span>
+                    {result.name}
+                  </td>
+                  <td className=' px-4 py-2 text-sm'></td>
+                  <td className=' px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      পিতার নাম:
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {result.fatherName}
+                  </td>
+                  <td className=' px-4 py-2 text-sm'></td>
+                </tr>
+                <tr className='border-b border-gray-300'>
+                  <td className=' px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      জন্ম তারিখ:
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {toBengaliNumber(result.dateOfBirth)}
+                  </td>
+                  <td className=' px-4 py-2 text-sm'></td>
+                  <td className=' px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      প্রাপ্ত বিভাগ:
+                    </div>
+                    <span className='pr-4'>: </span>
+                    মুমতায
+                  </td>
+                  <td className=' px-4 py-2 text-sm'></td>
+                </tr>
+                <tr className='border-b border-gray-300'>
+                  <td className=' px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      মাদরাসার নাম:
+                    </div>
+                    <span className='pr-4'>: </span>
+                    জামিআ ইকরা বাংলাদেশ
+                  </td>
+                  <td className=' px-4 py-2 text-sm'></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div>
+              <h2 className='text-xl font-bold text-green-800 text-center mb-4 font-noto-serif-bengali'>
+                নম্বরপত্র
+              </h2>
             </div>
 
             <div className='overflow-x-auto rounded-md font-noto-serif-bengali'>

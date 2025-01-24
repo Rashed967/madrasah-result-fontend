@@ -12,7 +12,8 @@ export async function POST(request: Request) {
     }
 
     const response = await fetch(
-      'https://madrasah-result-backend.vercel.app/search',
+      'http://localhost:5000/search',
+      // 'https://madrasah-result-backend.vercel.app/search',
       {
         method: 'POST',
         headers: {

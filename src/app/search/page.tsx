@@ -45,7 +45,21 @@ export default function SearchPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [examTypes, setExamTypes] = useState<string[]>([]);
-  const [marhalahTypes, setMarhalahTypes] = useState<string[]>([]);
+  const marhalahTypes = [
+    'আত তাখাসসুস ফিল ফিকহি ওয়াল ইফতা',
+    'ফযীলত',
+    'ফযীলত বালিকা',
+    'সানাবিয়্যাহ',
+    'সানাবিয়্যাহ বালিকা',
+    'মুতাওয়াসসিতাহ',
+    'মুতাওয়াসসতিাহ',
+    'ইবতদোইয়্যাহ বালক',
+    'ইবতেদাইয়্যাহ বালিকা',
+    'তাহফিজুল কুরআন 30 পারা',
+    'তাহফজিুল কুরআন ১০-২০ পারা',
+    'নাযরো',
+    'ইলমুত তাজবীদ ওয়াল কিরাআত',
+  ];
 
   useEffect(() => {
     const fetchExamTypes = async () => {
@@ -62,28 +76,6 @@ export default function SearchPage() {
 
     fetchExamTypes();
   }, []);
-
-  useEffect(() => {
-    const fetchMarhalahTypes = async () => {
-      if (!examType) {
-        setMarhalahTypes([]);
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          `/api/classes?sheetName=${encodeURIComponent(examType)}`
-        );
-        if (response.data.success) {
-          setMarhalahTypes(response.data.data.classes);
-        }
-      } catch (error) {
-        // console.error('Failed to fetch marhalah types:', error);
-      }
-    };
-
-    fetchMarhalahTypes();
-  }, [examType]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

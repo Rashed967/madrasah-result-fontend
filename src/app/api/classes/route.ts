@@ -13,9 +13,9 @@ export async function GET(request: Request) {
     }
 
     const response = await fetch(
-      `http://localhost:5000/api/classes?sheetName=${encodeURIComponent(
-        sheetName
-      )}`
+      `${
+        process.env.NEXT_PUBLIC_MAIN_URL
+      }/classes?sheetName=${encodeURIComponent(sheetName)}`
     );
 
     if (!response.ok) {

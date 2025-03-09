@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       };
 
       const response = await fetch(
-        'http://localhost:5000/api/search/student-result',
+        `${process.env.NEXT_PUBLIC_MAIN_URL}/search/student-result`,
         {
           method: 'POST',
           headers: {

@@ -1,7 +1,22 @@
 import { Printer } from 'lucide-react';
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function PrintButton() {
+  const [signatureBase64, setSignatureBase64] = useState('');
+
+  // Load and convert signature image to base64
+  useEffect(() => {
+    fetch('/images/sign.jpg')
+      .then((response) => response.blob())
+      .then((blob) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSignatureBase64(reader.result as string);
+        };
+        reader.readAsDataURL(blob);
+      });
+  }, []);
+
   const handlePrint = useCallback(() => {
     const printContent = document.getElementById('print-content');
     if (!printContent) return;
@@ -28,9 +43,17 @@ export function PrintButton() {
                 padding: 40px; 
                 font-family: 'Kalpurush';
               }
+
               @page { 
                 size: A4; 
-                margin: 0; 
+                margin: 0;
+              }
+
+              /* Wrapper for all content */
+              .page-wrapper {
+                position: relative;
+                min-height: calc(29.7cm - 80px); /* A4 height minus body padding */
+                padding-bottom: 120px; /* Reduced from 150px */
               }
 
               /* Print Header Styles */
@@ -43,8 +66,8 @@ export function PrintButton() {
 
               .print-header-logo {
                 position: absolute;
-                left: 73px;
-                top: 5px;
+                left: 80px;
+                top: 0px;
                 display: flex;
                 align-items: flex-start;
               }
@@ -179,21 +202,46 @@ export function PrintButton() {
               .print\\:hidden {
                 display: none;
               }
+
+              /* Sign Image Styles */
+              .signature-container {
+                position: fixed;
+                bottom: 80px;  /* Changed from 100px to 80px */
+                right: 40px;
+                width: 150px;
+                height: 100px;
+                z-index: 999;
+              }
+
+              .signature-image {
+                width: 150px;
+                height: auto;
+              }
+
+              #print-content {
+                position: relative;
+                z-index: 1;
+              }
             }
           </style>
         </head>
         <body>
-          <div class="print-header">
-            <div class="print-header-logo">
-              <img src="/images/logo.jpg" alt="logo" />
+          <div class="page-wrapper">
+            <div class="print-header">
+              <div class="print-header-logo">
+                <img src="/images/logo.jpg" alt="logo" />
+              </div>
+              <div class="print-header-content">
+                <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
+                <h3>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
+                <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
+              </div>
             </div>
-            <div class="print-header-content">
-              <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
-              <h3>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
-              <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
+            ${printContent.innerHTML}
+            <div class="signature-container">
+              <img src="${signatureBase64}" alt="signature" class="signature-image" />
             </div>
           </div>
-          ${printContent.innerHTML}
         </body>
       </html>
     `);
@@ -207,7 +255,7 @@ export function PrintButton() {
     iframeWindow.onafterprint = () => {
       document.body.removeChild(iframe);
     };
-  }, []);
+  }, [signatureBase64]);
 
   return (
     <div className='mt-8 text-center print:hidden'>

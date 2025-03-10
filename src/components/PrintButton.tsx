@@ -52,8 +52,8 @@ export function PrintButton() {
               /* Wrapper for all content */
               .page-wrapper {
                 position: relative;
-                min-height: calc(29.7cm - 80px); /* A4 height minus body padding */
-                padding-bottom: 120px; /* Reduced from 150px */
+                height: auto;
+                min-height: auto;
               }
 
               /* Print Header Styles */
@@ -61,7 +61,7 @@ export function PrintButton() {
                 position: relative;
                 margin-bottom: 2rem;
                 border-bottom: 1px solid #000;
-                padding-bottom: 10px;
+                padding-bottom: 4px;
               }
 
               .print-header-logo {
@@ -104,24 +104,31 @@ export function PrintButton() {
               }
 
               /* Title Styles */
-              .text-xl {
-                font-size: 20px;
-                font-weight: bold;
+              .marhala-name {
+                font-size: 18px;
+                font-weight: normal;
                 text-align: center;
                 margin-bottom: 1.5rem;
-                color: #166534;
               }
 
+              .exam-name {
+                font-size: 18px;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1rem;
+              }
               /* Student Info Styles */
               .student-info-container {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 margin-bottom: 2rem;
                 border-collapse: collapse;
+                margin-top: 1rem;
+                // border: 1px solid gray;
               }
 
               .student-info-item {
-                border-bottom: 1px solid #000;
+                border-bottom: .5px solid #000;
               }
 
               .student-info-row {
@@ -148,10 +155,9 @@ export function PrintButton() {
               /* Mark Sheet Styles */
               .mark-sheet-title {
                 font-size: 18px;
-                font-weight: bold;
+                font-weight: normal;
                 text-align: center;
-                color: #166534;
-                margin: 2rem 0 1rem;
+                margin: 1.5rem 0 1rem;
               }
 
               .mark-sheet-container {
@@ -163,6 +169,9 @@ export function PrintButton() {
                 border-collapse: collapse;
                 border: 1px solid #000;
               }
+                .mark-sheet-table tr{
+                background-color: blue;
+                }
 
               .mark-sheet-header {
                 background-color: transparent;
@@ -176,15 +185,19 @@ export function PrintButton() {
                 font-weight: 600;
                 padding: 10px;
                 text-align: center;
-                border: 1px solid #000;
+                border: 1px solid #D1D5DB;
               }
 
               .mark-sheet-row-even {
-                background-color: transparent;
+                background-color: black;
+              }
+
+              .mark-sheet-row-odd {
+                background-color: white;
               }
 
               .mark-sheet-cel {
-                border: 1px solid #000;
+                border: 1px solid #D1D5DB;
                 padding: 8px;
                 text-align: center;
               }
@@ -206,7 +219,7 @@ export function PrintButton() {
               /* Sign Image Styles */
               .signature-container {
                 position: fixed;
-                bottom: 80px;  /* Changed from 100px to 80px */
+                bottom: 80px;
                 right: 40px;
                 width: 150px;
                 height: 100px;
@@ -221,6 +234,22 @@ export function PrintButton() {
               #print-content {
                 position: relative;
                 z-index: 1;
+              }
+
+              /* Print/No Print Classes */
+              .print-only {
+                display: block !important;
+              }
+
+              .marhala-name, .exam-name {
+                margin: 0px; 
+                padding: 0px;
+              }
+
+              /* Prevent page break */
+              .page-wrapper {
+                page-break-after: avoid;
+                page-break-inside: avoid;
               }
             }
           </style>

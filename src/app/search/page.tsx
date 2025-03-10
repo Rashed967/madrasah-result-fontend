@@ -157,7 +157,7 @@ export default function SearchPage() {
         </form>
 
         {error && <ErrorMessage message={error} />}
-        {result && <ResultDisplay result={result} />}
+        {result && <ResultDisplay examType={examType} result={result} />}
       </div>
     </div>
   );

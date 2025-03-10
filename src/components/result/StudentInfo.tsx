@@ -98,7 +98,8 @@ export function StudentInfo({ result }: StudentInfoProps) {
           <div className='font-semibold student-info-label'>মাদরাসার নাম</div>
           <div className='student-info-value'>
             {' '}
-            <span className='mr-2'>:</span> {result.madrasahName}
+            <span className='mr-2'>:</span>{' '}
+            {toBengaliNumber(result.madrasahName)}
           </div>
         </div>
       </div>

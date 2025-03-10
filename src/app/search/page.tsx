@@ -119,7 +119,7 @@ export default function SearchPage() {
 
   return (
     <div className='min-h-screen bg-gray-100 py-8'>
-      <div className='mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg'>
+      <div className='mx-auto max-w-4xl rounded-lg bg-white p-3 md:p-6 shadow-lg'>
         <Header />
         <SearchTypeToggle
           searchType={searchType}

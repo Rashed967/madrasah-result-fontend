@@ -22,54 +22,69 @@ export function PrintButton() {
         <head>
           <title>Print Result</title>
           <style>
-            
-
             @media print {
-              body { margin: 0; padding: 40px; font-family: 'Kalpurush';}
-              @page { size: A4; margin: 0; }
+              body { 
+                margin: 0; 
+                padding: 40px; 
+                font-family: 'Kalpurush';
+              }
+              @page { 
+                size: A4; 
+                margin: 0; 
+              }
+
+              /* Student Info Styles */
+              .student-info-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                margin-bottom: 1.5rem;
+                border-collapse: collapse;
+              }
+
+              .student-info-item {
+                border-bottom: 1px solid #000;
+              }
+
+              .student-info-row {
+                display: grid;
+                grid-template-columns: 120px 1fr;
+                min-height: 35px;
+                align-items: center;
+              }
+
+              .student-info-label {
+                font-weight: 500;
+                padding-left: 5px;
+              }
+
+              .student-info-value {
+                display: flex;
+                align-items: center;
+              }
+
+              .student-info-value span {
+                margin-right: 8px;
+              }
+
+              /* Last item should span full width */
+              .md\\:col-span-2 {
+                grid-column: span 2;
+              }
+
+              /* Title Styles */
+              .text-xl {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: #166534;
+              }
+
+              /* Hide print button */
+              .print\\:hidden {
+                display: none;
+              }
             }
-
-            .student-info-container {
-    display: grid;
-    grid-template-columns: 1fr; /* Default to one column for screen */
-    margin-bottom: 1.5rem; /* Margin bottom */
-}
-
-      @media print {
-      .student-info-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Single column for mobile */
-    margin-bottom: 1.5rem; /* Margin bottom */
-}
-
-.student-info-item {
-    border-bottom: 1px solid #000; /* Light gray border */
-    padding: 0.5rem 0; /* Padding for top and bottom */
-}
-
-.student-info-row {
-    display: grid;
-    grid-template-columns: 100px 1fr; /* Two columns */
-    align-items: center; /* Center items vertically */
-    padding: 0.5rem 0; /* Padding for top and bottom */
-}
-
-.student-info-label {
-    font-weight: 600; /* Bold text */
-    color: #000; /* Dark gray color */
-}
-
-.student-info-value {
-    margin-left: 0.5rem; /* Space between label and value */
-    color: #000; /* Darker gray for value */
-}
-
-.md:col-span-2 {
-        grid-column: span 2; /* Span two columns */
-    }
-      
-}
-
           </style>
         </head>
         <body>

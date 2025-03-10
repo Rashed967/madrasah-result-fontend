@@ -5,21 +5,21 @@ import { StudentResult } from '@/types/student';
 export function MarkSheet({ result }: { result: StudentResult }) {
   return (
     <>
-      <h6 className='text-center text-xl font-bold text-green-800 mb-4'>
+      <h6 className='text-center text-xl font-bold text-green-800 mb-4 mark-sheet-title'>
         প্রাপ্ত নম্বর
       </h6>
-      <div className='overflow-x-auto rounded-md'>
-        <table className='w-full border-collapse'>
+      <div className='overflow-x-auto rounded-md mark-sheet-container'>
+        <table className='w-full border-collapse mark-sheet-table'>
           <thead>
-            <tr className='bg-green-700 text-white text-center'>
+            <tr className='bg-green-700 text-white text-center mark-sheet-header'>
               {/* serial number column will be small, not big like other columns */}
-              <th className='border border-gray-300 px-4 py-2 text-sm text-center'>
+              <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
                 ক্রমিক
               </th>
-              <th className='border border-gray-300 px-4 py-2 text-sm text-center'>
+              <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
                 বিষয়
               </th>
-              <th className='border border-gray-300 px-4 py-2 text-sm text-center'>
+              <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
                 প্রাপ্ত নম্বর
               </th>
             </tr>
@@ -29,23 +29,29 @@ export function MarkSheet({ result }: { result: StudentResult }) {
             {Object.entries(result.marks).map(([subject, marks], index) => (
               <tr
                 key={subject}
-                className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+                className={
+                  index % 2 === 0
+                    ? 'bg-gray-50 mark-sheet-row-even'
+                    : 'bg-white mark-sheet-row-odd'
+                }
               >
-                <td className='border border-gray-300 px-4 py-2 text-center w-14 md:w-24'>
+                <td className='border border-gray-300 px-4 py-2 text-center w-14 md:w-24 mark-sheet-cel'>
                   {toBengaliNumber(index + 1)}
                 </td>
-                <td className='border border-gray-300 px-4 py-2 text-center'>
+                <td className='border border-gray-300 px-4 py-2 text-center mark-sheet-cel'>
                   {subject}
                 </td>
-                <td className='border border-gray-300 px-4 py-2 text-center w-22'>
+                <td className='border border-gray-300 px-4 py-2 text-center w-22 mark-sheet-cel mark-sheet-marks'>
                   {toBengaliNumber(marks)}
                 </td>
               </tr>
             ))}
-            <tr className='font-bold text-center'>
-              <td className='border border-gray-300 px-4 py-2'></td>
-              <td className='border border-gray-300 px-4 py-2'>মোট নম্বর</td>
-              <td className='border border-gray-300 px-4 py-2'>
+            <tr className='font-bold text-center mark-sheet-footer'>
+              <td className='border border-gray-300 px-4 py-2 mark-sheet-cel '></td>
+              <td className='border border-gray-300 px-4 py-2 mark-sheet-cel'>
+                মোট নম্বর
+              </td>
+              <td className='border border-gray-300 px-4 py-2 mark-sheet-cel'>
                 {toBengaliNumber(result.totalMarks)}
               </td>
             </tr>

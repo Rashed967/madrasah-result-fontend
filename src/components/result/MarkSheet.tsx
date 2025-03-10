@@ -31,13 +31,13 @@ export function MarkSheet({ result }: { result: StudentResult }) {
                 key={subject}
                 className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
               >
-                <td className='border border-gray-300 px-4 py-2 text-center w-24'>
+                <td className='border border-gray-300 px-4 py-2 text-center w-14 md:w-24'>
                   {toBengaliNumber(index + 1)}
                 </td>
                 <td className='border border-gray-300 px-4 py-2 text-center'>
                   {subject}
                 </td>
-                <td className='border border-gray-300 px-4 py-2 text-center'>
+                <td className='border border-gray-300 px-4 py-2 text-center w-22'>
                   {toBengaliNumber(marks)}
                 </td>
               </tr>

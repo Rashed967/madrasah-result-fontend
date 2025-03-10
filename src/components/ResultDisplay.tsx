@@ -10,7 +10,7 @@ interface ResultDisplayProps {
 
 export function ResultDisplay({ result }: ResultDisplayProps) {
   return (
-    <div className='result-container text-sm'>
+    <div id='print-content' className='result-container text-sm'>
       <div>
         <h3
           style={{ fontFamily: 'Kalpurush' }}

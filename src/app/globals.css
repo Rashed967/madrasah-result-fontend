@@ -1,0 +1,42 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  /* Hide everything except print content */
+  body > *:not(#print-content) {
+    display: none !important;
+  }
+
+  /* Print content styles */
+  #print-content {
+    padding: 40px;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    background: white !important;
+  }
+
+  /* Table styles for print */
+  table {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure text is black for better printing */
+  * {
+    color: black !important;
+    text-align: left;
+  }
+
+  /* Keep background colors for table headers */
+  .bg-green-700 {
+    background-color: #15803d !important;
+    color: white !important;
+  }
+}

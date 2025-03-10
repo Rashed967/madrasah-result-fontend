@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { Noto_Serif_Bengali } from 'next/font/google';
 import * as React from 'react';
 
 import '@/styles/globals.css';
@@ -7,12 +6,6 @@ import '@/styles/globals.css';
 import '@/styles/colors.css';
 
 import { siteConfig } from '@/constant/config';
-
-const notoSerifBengali = Noto_Serif_Bengali({
-  weight: ['400', '700'],
-  subsets: ['bengali'],
-  variable: '--font-noto-serif-bengali',
-});
 
 // !STARTERCONF Change these default meta
 // !STARTERCONF Look at @/constant/config to change them
@@ -63,7 +56,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body className={notoSerifBengali.variable}>{children}</body>
+      <body style={{ fontFamily: 'Kalpurush' }}>{children}</body>
     </html>
   );
 }

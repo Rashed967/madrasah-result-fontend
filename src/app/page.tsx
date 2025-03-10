@@ -22,14 +22,14 @@ export default function HomePage() {
   return (
     <main>
       {/* just logo name and reuslt page link with button */}
-      <section className='bg-white font-noto-serif-bengali'>
+      <section className='bg-white '>
         <div className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
           <Image
             src='/images/logo.jpg'
             alt='Madrasah Logo'
             className='mx-auto mb-2 h-20 rounded-full'
           />
-          <h1 className='mt-4 mb-4 text-base font-noto-serif-bengali'>
+          <h1 className='mt-4 mb-4 text-base '>
             {' '}
             জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ
           </h1>

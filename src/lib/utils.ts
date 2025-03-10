@@ -6,9 +6,9 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function toBengaliNumber(input: number | string): string {
-  const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
-  return input
+export function toBengaliNumber(number: string | number): string {
+  const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return number
     .toString()
-    .replace(/[0-9]/g, (digit) => bengaliNumerals[parseInt(digit)]);
+    .replace(/[0-9]/g, (digit) => bengaliNumbers[parseInt(digit)]);
 }

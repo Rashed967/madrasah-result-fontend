@@ -23,6 +23,7 @@ export function PrintButton() {
           <title>Print Result</title>
           <style>
             @media print {
+           
               body { 
                 margin: 0; 
                 padding: 40px; 
@@ -33,11 +34,20 @@ export function PrintButton() {
                 margin: 0; 
               }
 
+              /* Title Styles */
+              .text-xl {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 1.5rem;
+                color: #166534;
+              }
+
               /* Student Info Styles */
               .student-info-container {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                margin-bottom: 1.5rem;
+                margin-bottom: 2rem;
                 border-collapse: collapse;
               }
 
@@ -66,18 +76,57 @@ export function PrintButton() {
                 margin-right: 8px;
               }
 
+              /* Mark Sheet Styles */
+              .mark-sheet-title {
+                font-size: 18px;
+                font-weight: bold;
+                text-align: center;
+                color: #166534;
+                margin: 2rem 0 1rem;
+              }
+
+              .mark-sheet-container {
+                margin-bottom: 2rem;
+              }
+
+              .mark-sheet-table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #000;
+              }
+
+              .mark-sheet-header {
+                background-color: transparent;
+              }
+
+              .mark-sheet-header th {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                background-color: #15803d !important;
+                color: white !important;
+                font-weight: 600;
+                padding: 10px;
+                text-align: center;
+                border: 1px solid #000;
+              }
+
+              .mark-sheet-row-even {
+                background-color: transparent;
+              }
+
+              .mark-sheet-cel {
+                border: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+              }
+
+              .mark-sheet-footer {
+                font-weight: bold;
+              }
+
               /* Last item should span full width */
               .md\\:col-span-2 {
                 grid-column: span 2;
-              }
-
-              /* Title Styles */
-              .text-xl {
-                font-size: 20px;
-                font-weight: bold;
-                text-align: center;
-                margin-bottom: 1.5rem;
-                color: #166534;
               }
 
               /* Hide print button */

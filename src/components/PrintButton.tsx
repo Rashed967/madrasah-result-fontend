@@ -23,7 +23,6 @@ export function PrintButton() {
           <title>Print Result</title>
           <style>
             @media print {
-           
               body { 
                 margin: 0; 
                 padding: 40px; 
@@ -32,6 +31,53 @@ export function PrintButton() {
               @page { 
                 size: A4; 
                 margin: 0; 
+              }
+
+              /* Print Header Styles */
+              .print-header {
+                position: relative;
+                margin-bottom: 2rem;
+                border-bottom: 1px solid #000;
+                padding-bottom: 10px;
+              }
+
+              .print-header-logo {
+                position: absolute;
+                left: 73px;
+                top: 5px;
+                display: flex;
+                align-items: flex-start;
+              }
+
+              .print-header-logo img {
+                width: 75px;
+                height: 75px;
+              }
+
+              .print-header-content {
+                text-align: center;
+                padding-left: 100px;
+                padding-right: 100px;
+              }
+
+              .print-header h1 {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 1px 0;
+                color: #000;
+              }
+
+              .print-header h3 {
+                font-size: 18px;
+                font-weight: normal;
+                margin: 0px 0;
+                color: #000;
+              }
+
+              .print-header p {
+                font-size: 14px;
+                margin: 0px 0;
+                color: #000;
               }
 
               /* Title Styles */
@@ -137,6 +183,16 @@ export function PrintButton() {
           </style>
         </head>
         <body>
+          <div class="print-header">
+            <div class="print-header-logo">
+              <img src="/images/logo.jpg" alt="logo" />
+            </div>
+            <div class="print-header-content">
+              <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
+              <h3>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
+              <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
+            </div>
+          </div>
           ${printContent.innerHTML}
         </body>
       </html>

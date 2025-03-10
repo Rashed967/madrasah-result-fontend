@@ -22,6 +22,7 @@ interface StudentResult {
   average: string;
   division: string;
   rank: string;
+  examineeType: string;
 }
 
 interface ApiResponse {
@@ -47,18 +48,15 @@ export default function SearchPage() {
   const [examTypes, setExamTypes] = useState<string[]>([]);
   const marhalahTypes = [
     'আত তাখাসসুস ফিল ফিকহি ওয়াল ইফতা',
-    'ফযীলত',
-    'ফযীলত বালিকা',
-    'সানাবিয়্যাহ',
-    'সানাবিয়্যাহ বালিকা',
-    'মুতাওয়াসসিতাহ',
-    'মুতাওয়াসসতিাহ',
-    'ইবতদোইয়্যাহ বালক',
-    'ইবতেদাইয়্যাহ বালিকা',
-    'তাহফিজুল কুরআন 30 পারা',
-    'তাহফজিুল কুরআন ১০-২০ পারা',
-    'নাযরো',
-    'ইলমুত তাজবীদ ওয়াল কিরাআত',
+    'ফযীলত (স্নাতক)',
+    'সানাবিয়্যাহ উলইয়া (উচ্চ মাধ্যমিক)',
+    'সানাবিয়্যাহ আম্মাহ (মাধ্যমিক)',
+    'মুতাওয়াসসিতাহ (৮ম শ্রেণি)',
+    'ইবতেদাইয়্যাহ (প্রাথমিক)',
+    'হিফজুল কুরআন (৩০ পারা গ্রুপ)',
+    'হিফজুল কুরআন (১০-২০ পারা গ্রুপ)',
+    'ইলমুত তাজবীদ ওয়াল কিরাআত',
+    'নাযেরা',
   ];
 
   useEffect(() => {
@@ -305,6 +303,22 @@ export default function SearchPage() {
                     </div>
                     <span className='pr-4'>: </span>
                     {result.division}
+                  </td>
+                </tr>
+                <tr className='border-b border-gray-300'>
+                  <td className='px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      পরীক্ষার্থীর ধরণ
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {result.examineeType}
+                  </td>
+                  <td className='px-4 py-2 text-sm'>
+                    <div className='font-semibold w-24 inline-block'>
+                      মেধা স্থান
+                    </div>
+                    <span className='pr-4'>: </span>
+                    {result.rank || '-'}
                   </td>
                 </tr>
                 <tr className='border-b border-gray-300'>

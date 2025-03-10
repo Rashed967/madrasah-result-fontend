@@ -22,15 +22,54 @@ export function PrintButton() {
         <head>
           <title>Print Result</title>
           <style>
-            body { padding: 40px; }
-            table { border-collapse: collapse; width: 100%; }
-            td, th { border: 1px solid #ddd; padding: 8px; }
-            th { background-color: #15803d; color: white; }
-            .text-center { text-align: center; }
+            
+
             @media print {
-              body { margin: 0; padding: 40px; }
+              body { margin: 0; padding: 40px; font-family: 'Kalpurush';}
               @page { size: A4; margin: 0; }
             }
+
+            .student-info-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to one column for screen */
+    margin-bottom: 1.5rem; /* Margin bottom */
+}
+
+      @media print {
+      .student-info-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Single column for mobile */
+    margin-bottom: 1.5rem; /* Margin bottom */
+}
+
+.student-info-item {
+    border-bottom: 1px solid #000; /* Light gray border */
+    padding: 0.5rem 0; /* Padding for top and bottom */
+}
+
+.student-info-row {
+    display: grid;
+    grid-template-columns: 100px 1fr; /* Two columns */
+    align-items: center; /* Center items vertically */
+    padding: 0.5rem 0; /* Padding for top and bottom */
+}
+
+.student-info-label {
+    font-weight: 600; /* Bold text */
+    color: #000; /* Dark gray color */
+}
+
+.student-info-value {
+    margin-left: 0.5rem; /* Space between label and value */
+    color: #000; /* Darker gray for value */
+}
+
+.md:col-span-2 {
+        grid-column: span 2; /* Span two columns */
+    }
+      
+}
+
           </style>
         </head>
         <body>

@@ -38,10 +38,19 @@ export function PrintButton() {
           <title>Print Result</title>
           <style>
             @media print {
+              @font-face {
+                font-family: 'Kalpurush';
+                src: url('/fonts/kalpurush.ttf') format('truetype');
+                font-weight: normal;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+              }
+
               body { 
                 margin: 0; 
                 padding: 40px; 
                 font-family: 'Kalpurush';
+                -webkit-print-color-adjust: exact;
               }
 
               @page { 
@@ -66,11 +75,18 @@ export function PrintButton() {
 
               .print-header-logo {
                 position: absolute;
-                left: 80px;
-                top: 0px;
+                left: 83px;  /* Default for desktop */
+                top: 0;
                 display: flex;
                 align-items: flex-start;
               }
+
+              // /* Chrome on mobile specific fix */
+              // @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 767px) {
+              //   .print-header-logo {
+              //     left: 40px;  /* Adjusted for Chrome mobile */
+              //   }
+              // }
 
               .print-header-logo img {
                 width: 75px;
@@ -79,7 +95,7 @@ export function PrintButton() {
 
               .print-header-content {
                 text-align: center;
-                padding-left: 100px;
+                padding-left: 120px;
                 padding-right: 100px;
               }
 
@@ -88,6 +104,7 @@ export function PrintButton() {
                 font-weight: bold;
                 margin: 1px 0;
                 color: #000;
+                font-family: 'Kalpurush';
               }
 
               .print-header h3 {
@@ -95,12 +112,14 @@ export function PrintButton() {
                 font-weight: normal;
                 margin: 0px 0;
                 color: #000;
+                font-family: 'Kalpurush';
               }
 
               .print-header p {
                 font-size: 14px;
                 margin: 0px 0;
                 color: #000;
+                font-family: 'Kalpurush';
               }
 
               /* Title Styles */
@@ -170,7 +189,7 @@ export function PrintButton() {
                 border: 1px solid #000;
               }
                 .mark-sheet-table tr{
-                background-color: blue;
+                // background-color: blue;
                 }
 
               .mark-sheet-header {
@@ -189,7 +208,7 @@ export function PrintButton() {
               }
 
               .mark-sheet-row-even {
-                background-color: black;
+                background-color: rgb(128 128 128 / 8%);
               }
 
               .mark-sheet-row-odd {

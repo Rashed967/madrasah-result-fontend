@@ -34,6 +34,7 @@ export function PrintButton() {
       <!DOCTYPE html>
       <html>
         <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <base href="${window.location.origin}">
           <title>Print Result</title>
           <style>
@@ -42,45 +43,30 @@ export function PrintButton() {
             }
             
             @media print {
-              body { 
-                display: block;
-                margin: 0; 
-                padding: 40px; 
-                font-family: 'Kalpurush';
-                -webkit-print-color-adjust: exact;
-              }
-
-              /* Hide any print dialogs */
-              #print-dialog {
-                display: none !important;
-              }
-
-              /* Force page settings */
+              /* Force A4 size */
               @page {
-                size: A4 portrait;
+                size: 210mm 297mm;  /* A4 dimensions */
                 margin: 0;
               }
 
-              @font-face {
-                font-family: 'Kalpurush';
-                src: url('/fonts/kalpurush.ttf') format('truetype');
-                font-weight: normal;
-                font-style: normal;
-                -webkit-font-smoothing: antialiased;
-              }
-
               body { 
-                margin: 0; 
+                display: block;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
                 padding: 40px; 
                 font-family: 'Kalpurush';
-                -webkit-print-color-adjust: exact;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
               }
 
-              /* Wrapper for all content */
-              .page-wrapper {
-                position: relative;
-                height: auto;
-                min-height: auto;
+              /* Chrome-specific fixes */
+              @media not all and (-webkit-min-device-pixel-ratio: 0), 
+                     not all and (-o-min-device-pixel-ratio: 0/1), 
+                     not all and (min-resolution: .001dpcm) { 
+                body { 
+                  zoom: 0.75;
+                }
               }
 
               /* Print Header Styles */
@@ -89,22 +75,16 @@ export function PrintButton() {
                 margin-bottom: 2rem;
                 border-bottom: 1px solid #000;
                 padding-bottom: 4px;
+                width: 100%;
               }
 
               .print-header-logo {
                 position: absolute;
-                left: 83px;  /* Default for desktop */
+                left: 83px;
                 top: 0;
                 display: flex;
                 align-items: flex-start;
               }
-
-              // /* Chrome on mobile specific fix */
-              // @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 767px) {
-              //   .print-header-logo {
-              //     left: 40px;  /* Adjusted for Chrome mobile */
-              //   }
-              // }
 
               .print-header-logo img {
                 width: 75px;

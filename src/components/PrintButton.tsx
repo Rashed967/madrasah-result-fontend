@@ -21,23 +21,46 @@ export function PrintButton() {
     const printContent = document.getElementById('print-content');
     if (!printContent) return;
 
-    // Create a hidden iframe
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
     document.body.appendChild(iframe);
 
-    // Write content to iframe
     const iframeWindow = iframe.contentWindow;
     const iframeDoc = iframeWindow?.document;
     if (!iframeDoc || !iframeWindow) return;
 
+    // Add base tag to handle relative URLs
     iframeDoc.write(`
       <!DOCTYPE html>
       <html>
         <head>
+          <base href="${window.location.origin}">
           <title>Print Result</title>
           <style>
+            @media screen {
+              body { display: none; }
+            }
+            
             @media print {
+              body { 
+                display: block;
+                margin: 0; 
+                padding: 40px; 
+                font-family: 'Kalpurush';
+                -webkit-print-color-adjust: exact;
+              }
+
+              /* Hide any print dialogs */
+              #print-dialog {
+                display: none !important;
+              }
+
+              /* Force page settings */
+              @page {
+                size: A4 portrait;
+                margin: 0;
+              }
+
               @font-face {
                 font-family: 'Kalpurush';
                 src: url('/fonts/kalpurush.ttf') format('truetype');
@@ -51,11 +74,6 @@ export function PrintButton() {
                 padding: 40px; 
                 font-family: 'Kalpurush';
                 -webkit-print-color-adjust: exact;
-              }
-
-              @page { 
-                size: A4; 
-                margin: 0;
               }
 
               /* Wrapper for all content */
@@ -293,16 +311,23 @@ export function PrintButton() {
         </body>
       </html>
     `);
+
     iframeDoc.close();
 
-    // Print the iframe
-    iframeWindow.focus();
-    iframeWindow.print();
+    // Small delay to ensure content is loaded
+    setTimeout(() => {
+      iframeWindow.focus();
+      try {
+        iframeWindow.print();
+      } catch (e) {
+        // Silent fail - we don't need to log the error
+      }
 
-    // Remove iframe after printing
-    iframeWindow.onafterprint = () => {
-      document.body.removeChild(iframe);
-    };
+      // Remove iframe after printing
+      iframeWindow.onafterprint = () => {
+        document.body.removeChild(iframe);
+      };
+    }, 100);
   }, [signatureBase64]);
 
   return (

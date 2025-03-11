@@ -31,7 +31,7 @@
 @layer base {
   @font-face {
     font-family: 'Kalpurush';
-    src: url('/fonts/kalpurush.ttf') format('ttf'); /* ফন্ট ফাইলের সঠিক পাথ দিন */
+    src: url('/fonts/kalpurush.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
   }

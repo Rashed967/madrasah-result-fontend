@@ -5,38 +5,43 @@
   }
 
   body {
-    margin: 0;
-    padding: 0;
-    background: white;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Hide everything except print content */
-  body > *:not(#print-content) {
+  /* Hide non-printable elements */
+  .print\\:hidden,
+  .no-print {
     display: none !important;
   }
 
-  /* Print content styles */
+  /* Show only print content */
   #print-content {
-    padding: 40px;
-    max-width: 100% !important;
-    box-shadow: none !important;
+    display: block !important;
+    position: relative !important;
+    padding: 40px !important;
+    margin: 0 !important;
+    width: 100% !important;
     background: white !important;
   }
 
-  /* Table styles for print */
+  /* Table styles */
   table {
-    page-break-inside: avoid;
+    width: 100% !important;
+    border-collapse: collapse !important;
   }
 
-  /* Ensure text is black for better printing */
-  * {
-    color: black !important;
-    text-align: left;
-  }
-
-  /* Keep background colors for table headers */
-  .bg-green-700 {
+  th {
     background-color: #15803d !important;
     color: white !important;
+  }
+
+  td,
+  th {
+    border: 1px solid #000 !important;
+    padding: 8px !important;
+    text-align: center !important;
   }
 }

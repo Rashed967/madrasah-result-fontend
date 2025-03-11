@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         primary: ['kalpurush', ...defaultTheme.fontFamily.sans],
+        kalpurush: ['var(--font-kalpurush)'],
       },
       colors: {
         primary: {

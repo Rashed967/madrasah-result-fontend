@@ -10,10 +10,8 @@ export function Header() {
         alt='Madrasah Logo'
         className='mx-auto mb-6 h-20 rounded-full'
       />
-      <h2
-        style={{ fontFamily: 'Kalpurush' }}
-        className='text-base md:text-2xl  font-bold text-green-800 mt-2'
-      >
+
+      <h2 className='text-base md:text-2xl  font-bold text-green-800 mt-2 font-primary'>
         জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ
       </h2>
       <hr className='my-6 border-t border-gray-300' />

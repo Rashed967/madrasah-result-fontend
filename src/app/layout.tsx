@@ -56,7 +56,7 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <body style={{ fontFamily: 'Kalpurush' }}>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

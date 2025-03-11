@@ -6,7 +6,7 @@ import '@/styles/globals.css';
 import '@/styles/colors.css';
 
 const kalpurush = localFont({
-  src: '../../public/fonts/Kalpurush.ttf',
+  src: '../../public/fonts/kalpurush.ttf',
   variable: '--font-kalpurush',
 });
 

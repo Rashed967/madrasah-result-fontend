@@ -5,7 +5,7 @@ import { StudentResult } from '@/types/student';
 export function MarkSheet({ result }: { result: StudentResult }) {
   return (
     <>
-      <h6 className='text-center text-xl font-bold text-green-800 mb-4 mark-sheet-title'>
+      <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title'>
         প্রাপ্ত নম্বর
       </h6>
       <div className='overflow-x-auto rounded-md mark-sheet-container'>

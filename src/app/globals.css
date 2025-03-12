@@ -1,47 +1,159 @@
-@media print {
-  @page {
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* Table styles */
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+}
+
+th {
+  background-color: #15803d !important;
+  color: white !important;
+}
+
+td,
+th {
+  border: 1px solid #000 !important;
+  padding: 8px !important;
+  text-align: center !important;
+}
+
+/*  ‍student marksheet print css start  */
+
+@font-face {
+  font-family: 'Kalpurush';
+  src: url('/fonts/kalpurush.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* @page {
     size: A4;
     margin: 0;
-  }
+  } */
 
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+/* @media print {
+    html, body {
+      margin: 40px;
+      font-family: 'Kalpurush', sans-serif;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
 
-  /* Hide non-printable elements */
-  .print\\:hidden,
-  .no-print {
-    display: none !important;
-  }
+    
+    /* Student Info Grid Layout */
+/* .student-info-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+    } */
+/* 
+    .student-info-item {
+      border-bottom: 1px solid #000;
+    } */
+/* 
+    .student-info-item:last-child {
+      grid-column: span 2;
+    }
 
-  /* Show only print content */
-  #print-content {
-    display: block !important;
-    position: relative !important;
-    padding: 40px !important;
-    margin: 0 !important;
-    width: 100% !important;
-    background: white !important;
-  }
+    .student-info-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      align-items: center;
+      padding: 8px 0;
+    }
 
-  /* Table styles */
-  table {
-    width: 100% !important;
-    border-collapse: collapse !important;
-  }
+    .print-header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #000;
+      padding-bottom: 4px;
+      position: relative;
+    }
 
-  th {
-    background-color: #15803d !important;
-    color: white !important;
-  }
+    .print-header-logo {
+      position: absolute;
+      left: 83px;
+      top: 0;
+    }
 
-  td,
-  th {
-    border: 1px solid #000 !important;
-    padding: 8px !important;
-    text-align: center !important;
-  }
-}
+    .print-header-logo img {
+      width: 75px;
+      height: 75px;
+    }
+
+    .print-header-content {
+      text-align: center;
+      padding-left: 120px;
+      padding-right: 100px;
+    }
+
+    .print-header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 1px 0;
+    }
+
+    .print-header h3 {
+      font-size: 18px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .print-header p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th {
+      background-color: #15803d !important;
+      color: white !important;
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #000;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+
+    .print-only {
+      display: block !important;
+    }
+
+    /* Signature styles */
+/* .signature {
+      position: absolute;
+      bottom: 80px;
+      right: 40px;
+      text-align: center;
+    }
+
+    .signature img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 5px;
+    }
+
+    .signature-text {
+      font-size: 14px;
+      margin: 0;
+    } */
+
+/* // ‍student marksheet print css end  */

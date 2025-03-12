@@ -17,7 +17,7 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
 
   return (
     <div ref={printRef} className='result-container text-sm'>
-      <div className='print-header hidden print:block'>
+      <div className='print-header print:block'>
         <div className='print-header-logo'>
           <Image
             src='/images/logo.jpg'
@@ -43,7 +43,7 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
       </div>
       <StudentInfo result={result} />
       <MarkSheet result={result} />
-      <div className='signature hidden print:block'>
+      <div className='signature  print:block'>
         <Image
           src='/images/sign.jpg'
           alt='signature'

@@ -1,3 +1,5 @@
+import { toBengaliNumber } from '@/lib/utils';
+
 interface IndividualSearchFormProps {
   examType: string;
   setExamType: (value: string) => void;
@@ -60,7 +62,7 @@ export function IndividualSearchForm({
         <input
           type='text'
           value={registrationNo}
-          onChange={(e) => setRegistrationNo(e.target.value)}
+          onChange={(e) => setRegistrationNo(toBengaliNumber(e.target.value))}
           placeholder='রেজিস্ট্রেশন নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
@@ -70,7 +72,7 @@ export function IndividualSearchForm({
         <input
           type='text'
           value={rollNo}
-          onChange={(e) => setRollNo(e.target.value)}
+          onChange={(e) => setRollNo(toBengaliNumber(e.target.value))}
           placeholder='রোল নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required

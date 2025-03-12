@@ -126,7 +126,7 @@ export default function SearchPage() {
           setSearchType={setSearchType}
         />
 
-        <form onSubmit={handleSubmit} className='space-y-4 mb-8'>
+        <form onSubmit={handleSubmit} className='space-y-4 mb-8 print:hidden'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {searchType === 'individual' ? (
               <IndividualSearchForm

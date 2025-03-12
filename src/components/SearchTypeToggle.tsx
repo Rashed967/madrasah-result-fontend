@@ -10,7 +10,7 @@ export function SearchTypeToggle({
   setSearchType,
 }: SearchTypeToggleProps) {
   return (
-    <div className='flex justify-center gap-4 mb-6'>
+    <div className='flex justify-center gap-4 mb-6 print:hidden'>
       <button
         onClick={() => setSearchType('individual')}
         className={clsx(

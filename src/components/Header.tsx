@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export function Header() {
   return (
-    <div className='mb-8 text-center mt-5'>
+    <div className='mb-8 text-center mt-5 print:hidden'>
       <Image
         src='/images/logo.jpg'
         width={80}

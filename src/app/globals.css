@@ -20,10 +20,14 @@ body {
   display: none;
 }
 
+/* * :not(.result-container) {
+  display: block;
+} */
+
 @media print {
   @page {
     size: A4;
-    margin: 10mm 20mm;
+    margin: 10mm 15mm;
   }
   .result-container {
     width: 100%;
@@ -40,7 +44,7 @@ body {
 
   .print-header-logo {
     position: absolute;
-    left: 60px;
+    left: 70px;
     top: 0;
   }
 

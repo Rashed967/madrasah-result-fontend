@@ -11,8 +11,8 @@ export function StudentInfo({ result }: StudentInfoProps) {
     <div className='grid grid-cols-2 gap-0 mb-6 student-info-container'>
       {/* First Column */}
       <div className='space-y-0'>
-        <InfoRow label='রোল' value={toBengaliNumber(result.rollNo)} />
-        <InfoRow label='নাম' value={result.name} />
+        <InfoRow label='রোল নং' value={toBengaliNumber(result.rollNo)} />
+        <InfoRow label='পরীক্ষার্থীর নাম' value={result.name} />
         <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
         <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType} />
       </div>

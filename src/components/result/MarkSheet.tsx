@@ -5,10 +5,12 @@ import { StudentResult } from '@/types/student';
 export function MarkSheet({ result }: { result: StudentResult }) {
   return (
     <>
-      <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title'>
-        প্রাপ্ত নম্বর
-      </h6>
-      <div className='overflow-x-auto rounded-md mark-sheet-container'>
+      <div className='flex justify-center items-center mb-3 mt-4'>
+        <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title border-black border-b-[1.5px]'>
+          প্রাপ্ত নম্বর
+        </h6>
+      </div>
+      <div className='overflow-x-auto rounded-md mark-sheet-container '>
         <table className='w-full border-collapse mark-sheet-table'>
           <thead>
             <tr className='bg-green-700 text-white text-center mark-sheet-header'>

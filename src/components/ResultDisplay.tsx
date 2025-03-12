@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useRef } from 'react';
 
+import '../app/globals.css';
+
 import { PrintButton } from './PrintButton';
 import { MarkSheet } from './result/MarkSheet';
 import { StudentInfo } from './result/StudentInfo';
@@ -16,8 +18,8 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
   const printRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={printRef} className='result-container text-sm'>
-      <div className='print-header print:block'>
+    <div ref={printRef} className='result-container text-sm relative'>
+      <div className='print-header hidden print:block'>
         <div className='print-header-logo'>
           <Image
             src='/images/logo.jpg'
@@ -34,7 +36,7 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
         </div>
       </div>
       <div>
-        <h1 className='exam-name hidden print:block text-xl font-bold text-center mb-1'>
+        <h1 className='exam-name hidden print:block text-xl font-bold text-center mb-3'>
           {examType}
         </h1>
         <h3 className='text-lg font-normal text-center mb-4 '>
@@ -43,15 +45,19 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
       </div>
       <StudentInfo result={result} />
       <MarkSheet result={result} />
-      <div className='signature  print:block'>
+      <div className='signature '>
         <Image
-          src='/images/sign.jpg'
+          src='/images/signature.jpg'
           alt='signature'
-          width={120}
+          width={80}
           height={60}
           priority
+          className='-rotate-[4deg] '
         />
-        <p className='signature-text'>পরীক্ষা নিয়ন্ত্রক</p>
+        <p className='signature-text border-b-[0.1px] mb-1 border-black'>
+          পরীক্ষা নিয়ন্ত্রক
+        </p>
+        <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
       </div>
       <PrintButton printRef={printRef} />
     </div>

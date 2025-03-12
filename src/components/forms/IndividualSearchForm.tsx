@@ -33,6 +33,7 @@ export function IndividualSearchForm({
           onChange={(e) => setExamType(e.target.value)}
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name='examType'
         >
           <option value=''>পরীক্ষা নির্বাচন করুন</option>
           {examTypes?.map((type) => (
@@ -49,6 +50,7 @@ export function IndividualSearchForm({
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
           disabled={!examType}
+          name='marhalah'
         >
           <option value=''>মারহালা নির্বাচন করুন</option>
           {marhalahTypes?.map((type) => (
@@ -66,6 +68,7 @@ export function IndividualSearchForm({
           placeholder='রেজিস্ট্রেশন নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name='registrationNo'
         />
       </div>
       <div className='w-full'>
@@ -76,6 +79,7 @@ export function IndividualSearchForm({
           placeholder='রোল নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name='rollNo'
         />
       </div>
     </>

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       if (!response.ok) {
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
         success: false,
         error: 'দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

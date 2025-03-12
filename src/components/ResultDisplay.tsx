@@ -15,10 +15,10 @@ interface ResultDisplayProps {
 }
 
 export function ResultDisplay({ result, examType }: ResultDisplayProps) {
-  const printRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div ref={printRef} className='result-container text-sm relative'>
+    <div ref={contentRef} className='result-container text-sm relative'>
       <div className='print-header hidden print:block'>
         <div className='print-header-logo'>
           <Image
@@ -59,7 +59,7 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
         </p>
         <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
       </div>
-      <PrintButton printRef={printRef} />
+      <PrintButton contentRef={contentRef} />
     </div>
   );
 }

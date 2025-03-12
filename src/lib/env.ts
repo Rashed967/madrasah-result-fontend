@@ -18,3 +18,8 @@ declare global {
     interface ProcessEnv extends z.infer<typeof envVariables> {}
   }
 }
+
+// If the interface is empty, remove it or add properties
+interface MyInterface {
+  // Add properties here or remove the interface if not needed
+}

@@ -20,7 +20,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { success: false, error: 'পরীক্ষার তালিকা লোড করতে সমস্যা হয়েছে' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

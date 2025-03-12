@@ -8,14 +8,12 @@ export async function GET(request: Request) {
     if (!sheetName) {
       return NextResponse.json(
         { success: false, error: 'Sheet name is required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     const response = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_MAIN_URL
-      }/classes?sheetName=${encodeURIComponent(sheetName)}`
+      `${process.env.NEXT_PUBLIC_MAIN_URL}/classes?sheetName=${encodeURIComponent(sheetName)}`,
     );
 
     if (!response.ok) {
@@ -24,10 +22,10 @@ export async function GET(request: Request) {
 
     const data = await response.json();
     return NextResponse.json(data);
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json(
       { success: false, error: 'মারহালার তালিকা লোড করতে সমস্যা হয়েছে' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

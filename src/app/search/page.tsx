@@ -39,7 +39,7 @@ interface ApiResponse {
 
 export default function SearchPage() {
   const [searchType, setSearchType] = useState<'individual' | 'madrasah'>(
-    'individual'
+    'individual',
   );
   const [examType, setExamType] = useState('');
   const [marhalah, setMarhalah] = useState('');
@@ -48,20 +48,19 @@ export default function SearchPage() {
   const [madrasahCode, setMadrasahCode] = useState('');
   const [mobileNo, setMobileNo] = useState('');
   const [result, setResult] = useState<StudentResult | null>(null);
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [examTypes, setExamTypes] = useState<string[]>([]);
   const marhalahTypes = [
     'আত তাখাসসুস ফিল ফিকহি ওয়াল ইফতা',
     'ফযীলত (স্নাতক)',
     'সানাবিয়্যাহ উলইয়া (উচ্চ মাধ্যমিক)',
-    'সানাবিয়্যাহ আম্মাহ (মাধ্যমিক)',
-    'মুতাওয়াসসিতাহ (৮ম শ্রেণি)',
-    'ইবতেদাইয়্যাহ (প্রাথমিক)',
+    'মুতাওয়াসসিতাহ (৮ম শ্রেণি)',
+    'ইবতেদাইয়্যাহ (প্রাথমিক)',
     'হিফজুল কুরআন (৩০ পারা গ্রুপ)',
     'হিফজুল কুরআন (১০-২০ পারা গ্রুপ)',
-    'ইলমুত তাজবীদ ওয়াল কিরাআত',
     'নাযেরা',
+    'ইলমুত তাজবীদ ওয়াল কিরাআত',
   ];
 
   useEffect(() => {
@@ -72,8 +71,8 @@ export default function SearchPage() {
         if (response.data.success) {
           setExamTypes(response.data.data);
         }
-      } catch (error) {
-        // console.error('Failed to fetch exam types:', error);
+      } catch (_error) {
+        // Handle error if needed
       }
     };
 
@@ -83,7 +82,7 @@ export default function SearchPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setErrorMessage('');
     setResult(null);
 
     try {
@@ -108,10 +107,10 @@ export default function SearchPage() {
       if (response.data.success && response.data.data) {
         setResult(response.data.data);
       } else {
-        setError(response.data.error || 'কোনো ফলাফল পাওয়া যায়নি');
+        setErrorMessage(response.data.error || 'কোনো ফলাফল পাওয়া যায়নি');
       }
-    } catch (err) {
-      setError('দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+    } catch (_error) {
+      setErrorMessage('দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।');
     } finally {
       setLoading(false);
     }
@@ -156,7 +155,7 @@ export default function SearchPage() {
           <SubmitButton loading={loading} />
         </form>
 
-        {error && <ErrorMessage message={error} />}
+        {errorMessage && <ErrorMessage message={errorMessage} />}
         {result && <ResultDisplay examType={examType} result={result} />}
       </div>
     </div>

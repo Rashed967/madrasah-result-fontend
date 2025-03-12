@@ -17,7 +17,7 @@ export function SearchTypeToggle({
           'px-4 py-2 rounded-lg text-sm',
           searchType === 'individual'
             ? 'bg-green-700 text-white'
-            : 'bg-gray-200 text-gray-700'
+            : 'bg-gray-200 text-gray-700',
         )}
       >
         ব্যক্তিগত ফলাফল
@@ -28,7 +28,7 @@ export function SearchTypeToggle({
           'px-4 py-2 rounded-lg text-sm',
           searchType === 'madrasah'
             ? 'bg-green-700 text-white'
-            : 'bg-gray-200 text-gray-700'
+            : 'bg-gray-200 text-gray-700',
         )}
       >
         মাদরাসাওয়ারী ফলাফল

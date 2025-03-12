@@ -1,23 +1,19 @@
-import localFont from 'next/font/local';
-import * as React from 'react';
+'use server';
 
-import '@/styles/globals.css';
-// !STARTERCONF This is for demo purposes, remove @/styles/colors.css import immediately
-import '@/styles/colors.css';
+import React from 'react';
 
-const kalpurush = localFont({
-  src: '../../public/fonts/kalpurush.ttf',
-  variable: '--font-kalpurush',
-});
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={kalpurush.variable}>
-      <body>{children}</body>
+    <html lang='en'>
+      <body suppressHydrationWarning={true}>
+        {/* Layout UI */}
+        {/* Place children where you want to render a page or nested layout */}
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0 !important;
   padding: 0 !important;
@@ -84,6 +88,17 @@ body {
     position: absolute;
     bottom: 40px;
     right: 40px;
+  }
+
+  /* Hide everything by default */
+  body * {
+    display: none !important;
+  }
+
+  /* Show only the specific section you want to print */
+  .printable-section,
+  .printable-section * {
+    display: block !important;
   }
 }
 

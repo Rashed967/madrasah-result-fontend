@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 import '../app/globals.css';
 
-import { PrintButton } from './PrintButton';
+import PrintButton from './PrintButton';
 import { MarkSheet } from './result/MarkSheet';
 import { StudentInfo } from './result/StudentInfo';
 

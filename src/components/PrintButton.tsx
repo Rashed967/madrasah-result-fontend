@@ -1,4 +1,5 @@
 import { Printer } from 'lucide-react';
+import React from 'react';
 import { RefObject } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
@@ -6,10 +7,11 @@ interface PrintButtonProps {
   printRef: RefObject<HTMLDivElement>;
 }
 
-export function PrintButton({ printRef }: PrintButtonProps) {
+const PrintButton = ({ printRef }: PrintButtonProps) => {
   const printHandler = useReactToPrint({
     documentTitle: 'Result',
     contentRef: printRef,
+    onAfterPrint: () => alert('Print successful!'),
   });
 
   return (
@@ -22,4 +24,6 @@ export function PrintButton({ printRef }: PrintButtonProps) {
       </button>
     </div>
   );
-}
+};
+
+export default PrintButton;

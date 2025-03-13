@@ -1,3 +1,5 @@
+import { toBengaliNumber } from "@/lib/utils";
+
 interface MadrasahSearchFormProps {
   examType: string;
   setExamType: (value: string) => void;
@@ -39,7 +41,7 @@ export function MadrasahSearchForm({
         <input
           type='text'
           value={madrasahCode}
-          onChange={(e) => setMadrasahCode(e.target.value)}
+          onChange={(e) => setMadrasahCode(toBengaliNumber(e.target.value))}
           placeholder='মাদরাসা কোড'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
@@ -50,7 +52,7 @@ export function MadrasahSearchForm({
         <input
           type='tel'
           value={mobileNo}
-          onChange={(e) => setMobileNo(e.target.value)}
+          onChange={(e) => setMobileNo(toBengaliNumber(e.target.value))}
           placeholder='মোবাইল নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required

@@ -8,8 +8,15 @@ module.exports = {
     // Or if using `src` directory:
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  // use font (kalpurush) variable font, like karpurush.variable, make it primary font
+
+
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        kalpurush: ['Kalpurush', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };

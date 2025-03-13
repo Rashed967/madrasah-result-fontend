@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   margin: 0 !important;
   padding: 0 !important;
   -webkit-print-color-adjust: exact !important;
   print-color-adjust: exact !important;
-}
+} */
 
 /*  ‍student marksheet print css start  */
 
@@ -42,7 +42,7 @@ body {
   .print-header {
     margin-bottom: 2rem;
     border-bottom: 1px solid #000;
-    padding-bottom: 4px;
+    padding-bottom: 1rem;
     position: relative;
   }
 
@@ -58,9 +58,7 @@ body {
   }
 
   .print-header-content {
-    text-align: center;
-    padding-left: 120px;
-    padding-right: 100px;
+    padding: 1rem 0;
   }
 
   .print-header h1 {
@@ -91,9 +89,7 @@ body {
   }
 
   /* Hide everything by default */
-  body * {
-    display: none !important;
-  }
+
 
   /* Show only the specific section you want to print */
   .printable-section,

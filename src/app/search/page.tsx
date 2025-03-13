@@ -89,18 +89,18 @@ export default function SearchPage() {
       const payload =
         searchType === 'individual'
           ? {
-              searchType,
-              examType,
-              marhalah,
-              registrationNo,
-              rollNo,
-            }
+            searchType,
+            examType,
+            marhalah,
+            registrationNo,
+            rollNo,
+          }
           : {
-              searchType,
-              examType,
-              madrasahCode,
-              mobileNo,
-            };
+            searchType,
+            examType,
+            madrasahCode,
+            mobileNo,
+          };
 
       const response = await axios.post<ApiResponse>('/api/search', payload);
 
@@ -117,7 +117,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className='min-h-screen bg-gray-100 py-8'>
+    <div className='min-h-screen bg-gray-100 py-8 font-kalpurush'>
       <div className='mx-auto max-w-4xl rounded-lg bg-white p-3 md:p-6 shadow-lg'>
         <Header />
         <SearchTypeToggle

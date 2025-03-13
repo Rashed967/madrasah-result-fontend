@@ -19,10 +19,10 @@ const PrintButton = ({ contentRef }: PrintButtonProps) => {
   });
 
   return (
-    <div className='mt-8 text-center print:hidden'>
+    <div className='mt-8 text-center print:hidden '>
       <button
-        onClick={() => reactToPrintFn()}
-        className='rounded-lg bg-gray-600 w-64 py-1 text-white hover:bg-gray-700 text-sm'
+
+        className='rounded-lg bg-gray-700 w-64 py-1 text-white text-sm'
       >
         <Printer className='inline-block w-3 h-4 mr-1' /> প্রিন্ট করুন
       </button>

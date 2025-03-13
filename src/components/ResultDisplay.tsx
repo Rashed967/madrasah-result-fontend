@@ -6,15 +6,18 @@ import '../app/globals.css';
 import PrintButton from './PrintButton';
 import { MarkSheet } from './result/MarkSheet';
 import { StudentInfo } from './result/StudentInfo';
+import { MadrasahResult } from '@/types/madrasah';
+import { MadrasahResultDisplay } from './result/MadrasahResult';
 
 import { StudentResult } from '@/types/student';
 
 interface ResultDisplayProps {
-  result: StudentResult;
+  result: StudentResult | MadrasahResult;
   examType: string;
+  searchType: 'individual' | 'madrasah';
 }
 
-export function ResultDisplay({ result, examType }: ResultDisplayProps) {
+export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   return (
@@ -39,12 +42,20 @@ export function ResultDisplay({ result, examType }: ResultDisplayProps) {
         <h1 className='exam-name hidden print:block text-xl font-bold text-center mb-3'>
           {examType}
         </h1>
-        <h3 className='text-lg font-normal text-center mb-4 '>
-          {result.class}
-        </h3>
+        {searchType === 'individual' && (
+          <h3 className='text-lg font-normal text-center mb-4'>
+            {(result as StudentResult).class}
+          </h3>
+        )}
       </div>
-      <StudentInfo result={result} />
-      <MarkSheet result={result} />
+      {searchType === 'individual' ? (
+        <>
+          <StudentInfo result={result as StudentResult} />
+          <MarkSheet result={result as StudentResult} />
+        </>
+      ) : (
+        <MadrasahResultDisplay data={result as MadrasahResult} />
+      )}
       <div className='signature '>
         <Image
           src='/images/signature.jpg'

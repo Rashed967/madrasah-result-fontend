@@ -1,0 +1,69 @@
+import React from 'react';
+import { toBengaliNumber } from '@/lib/utils';
+import { MadrasahResult } from '@/types/madrasah';
+
+export function MadrasahResultDisplay({ data }: { data: MadrasahResult }) {
+  return (
+    <div className="space-y-6">
+      {/* মাদ্রাসার তথ্য */}
+      <div className="text-center mb-6">
+        <h2 className="text-xl font-bold mb-2">{data.madrasahName}</h2>
+        <p className="text-gray-600">{data.markazName}</p>
+        <p className="text-gray-600">মাদ্রাসা কোড: {data.madrasahCode}</p>
+        <p className="text-gray-600">মোট পরীক্ষার্থী: {toBengaliNumber(data.totalStudents)}</p>
+      </div>
+
+      {/* ক্লাস ভিত্তিক ফলাফল */}
+      {Object.entries(data.resultsByClass).map(([className, students]: [string, Array<{
+        name: string;
+        registrationNo: string;
+        rollNo: string;
+        fatherName: string;
+        dateOfBirth: string;
+        marks: {
+          [key: string]: string;
+        };
+        totalMarks: string;
+        average: string;
+        division: string;
+        rank: string;
+      }>]) => (
+        <div key={className} className="mb-8">
+          <h3 className="text-lg font-semibold mb-4 bg-gray-100 p-2">{className}</h3>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="border p-2">ক্রমিক</th>
+                  <th className="border p-2">নাম</th>
+                  <th className="border p-2">রেজি. নং</th>
+                  <th className="border p-2">রোল</th>
+                  <th className="border p-2">পিতার নাম</th>
+                  <th className="border p-2">মোট নম্বর</th>
+                  <th className="border p-2">গড়</th>
+                  <th className="border p-2">ডিভিশন</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((student, index) => (
+                  <tr key={student.registrationNo} className="hover:bg-gray-50">
+                    <td className="border p-2 text-center">{toBengaliNumber(index + 1)}</td>
+                    <td className="border p-2">{student.name}</td>
+                    <td className="border p-2">{student.registrationNo}</td>
+                    <td className="border p-2">{student.rollNo}</td>
+                    <td className="border p-2">{student.fatherName}</td>
+                    <td className="border p-2 text-center">{student.totalMarks}</td>
+                    <td className="border p-2 text-center">
+                      {student.average === '#######' ? '-' : student.average}
+                    </td>
+                    <td className="border p-2">{student.division}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+} 

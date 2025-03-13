@@ -16,3 +16,10 @@ export interface StudentResult {
   rank: string;
   examineeType: string;
 }
+
+export interface StudentApiResponse {
+  success: boolean;
+  message: string;
+  data?: StudentResult;
+  error?: string;
+}

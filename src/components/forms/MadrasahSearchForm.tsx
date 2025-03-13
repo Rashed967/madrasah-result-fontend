@@ -25,6 +25,7 @@ export function MadrasahSearchForm({
           onChange={(e) => setExamType(e.target.value)}
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name='examType'
         >
           <option value=''>পরীক্ষা নির্বাচন করুন</option>
           {examTypes?.map((type) => (
@@ -42,6 +43,7 @@ export function MadrasahSearchForm({
           placeholder='মাদরাসা কোড'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name="madrasahCode"
         />
       </div>
       <div className='w-full md:col-span-2'>
@@ -52,6 +54,7 @@ export function MadrasahSearchForm({
           placeholder='মোবাইল নম্বর'
           className='w-full rounded-lg border border-gray-300 px-4 py-2 text-sm'
           required
+          name="mobileNo"
         />
       </div>
     </>

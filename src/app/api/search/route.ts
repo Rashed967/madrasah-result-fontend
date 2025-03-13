@@ -31,9 +31,39 @@ export async function POST(request: Request) {
       return NextResponse.json(data);
     }
 
-    // Handle madrasah search case here...
+    // Handle madrasah search
+    if (body.searchType === 'madrasah') {
+      const payload = {
+        sheetName: body.examType,
+        madrasahCode: body.madrasahCode,
+        mobileNumber: body.mobileNo,
+      };
+
+      console.log('Sending payload:', payload);
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_MAIN_URL}/search/madrasah-result`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error(`Backend responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Response data:', data);
+      return NextResponse.json(data);
+    }
+
     throw new Error('Invalid search type');
   } catch (error) {
+    console.error('Error:', error);
     return NextResponse.json(
       {
         success: false,

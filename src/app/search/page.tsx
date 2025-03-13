@@ -10,30 +10,13 @@ import { Header } from '@/components/Header';
 import { ResultDisplay } from '@/components/ResultDisplay';
 import { SearchTypeToggle } from '@/components/SearchTypeToggle';
 import { SubmitButton } from '@/components/SubmitButton';
-
-interface StudentResult {
-  name: string;
-  registrationNo: string;
-  rollNo: string;
-  fatherName: string;
-  dateOfBirth: string;
-  madrasahName: string;
-  madrasahCode: string;
-  class: string;
-  marks: {
-    [key: string]: string;
-  };
-  totalMarks: string;
-  average: string;
-  division: string;
-  rank: string;
-  examineeType: string;
-}
+import { MadrasahApiResponse, MadrasahResult } from '@/types/madrasah';
+import { StudentResult, StudentApiResponse } from '@/types/student';
 
 interface ApiResponse {
   success: boolean;
   message?: string;
-  data?: StudentResult;
+  data?: StudentResult | MadrasahResult;
   error?: string;
 }
 
@@ -47,7 +30,7 @@ export default function SearchPage() {
   const [rollNo, setRollNo] = useState('');
   const [madrasahCode, setMadrasahCode] = useState('');
   const [mobileNo, setMobileNo] = useState('');
-  const [result, setResult] = useState<StudentResult | null>(null);
+  const [result, setResult] = useState<StudentResult | MadrasahResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [examTypes, setExamTypes] = useState<string[]>([]);
@@ -102,7 +85,8 @@ export default function SearchPage() {
             mobileNo,
           };
 
-      const response = await axios.post<ApiResponse>('/api/search', payload);
+      const response = await axios.post<StudentApiResponse | MadrasahApiResponse>('/api/search', payload);
+      console.log(response.data);
 
       if (response.data.success && response.data.data) {
         setResult(response.data.data);
@@ -156,7 +140,13 @@ export default function SearchPage() {
         </form>
 
         {errorMessage && <ErrorMessage message={errorMessage} />}
-        {result && <ResultDisplay examType={examType} result={result} />}
+        {result && (
+          <ResultDisplay
+            examType={examType}
+            result={result}
+            searchType={searchType}
+          />
+        )}
       </div>
     </div>
   );

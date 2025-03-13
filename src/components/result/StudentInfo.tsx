@@ -12,17 +12,15 @@ export function StudentInfo({ result }: StudentInfoProps) {
       {/* First Column */}
 
       <InfoRow label='রোল নং' value={toBengaliNumber(result.rollNo)} />
-      <InfoRow label='পরীক্ষার্থীর নাম' value={result.name} />
-      <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
-      <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType} />
-
-
       <InfoRow
         label='নিবন্ধন নং'
         value={toBengaliNumber(result.registrationNo)}
       />
+      <InfoRow label='পরীক্ষার্থীর নাম' value={result.name} />
       <InfoRow label='পিতার নাম' value={result.fatherName} />
+      <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
       <InfoRow label='প্রাপ্ত বিভাগ' value={result.division} />
+      <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType} />
       <InfoRow
         label='মেধা স্থান'
         value={toBengaliNumber(result.rank || '-')}

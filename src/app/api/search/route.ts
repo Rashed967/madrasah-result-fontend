@@ -28,6 +28,7 @@ export async function POST(request: Request) {
       }
 
       const data = await response.json();
+      // console.log(data);
       return NextResponse.json(data);
     }
 
@@ -39,7 +40,7 @@ export async function POST(request: Request) {
         mobileNumber: body.mobileNo,
       };
 
-      console.log('Sending payload:', payload);
+
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_MAIN_URL}/search/madrasah-result`,
@@ -58,6 +59,7 @@ export async function POST(request: Request) {
 
       const data = await response.json();
       console.log('Response data:', data);
+      console.log(data);
       return NextResponse.json(data);
     }
 

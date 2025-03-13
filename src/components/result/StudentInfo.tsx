@@ -20,7 +20,7 @@ export function StudentInfo({ result }: StudentInfoProps) {
       <InfoRow label='পিতার নাম' value={result.fatherName} />
       <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
       <InfoRow label='প্রাপ্ত বিভাগ' value={result.division} />
-      <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType} />
+      <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType || 'নিয়মিত'} />
       <InfoRow
         label='মেধা স্থান'
         value={toBengaliNumber(result.rank || '-')}

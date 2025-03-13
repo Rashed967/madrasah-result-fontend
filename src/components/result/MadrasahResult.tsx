@@ -1,15 +1,15 @@
 import React from 'react';
-import { toBengaliNumber } from '@/lib/utils';
+import { toBengaliNumber, toEnglishNumber } from '@/lib/utils';
 import { MadrasahResult } from '@/types/madrasah';
 
 export function MadrasahResultDisplay({ data }: { data: MadrasahResult }) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 mt-10">
       {/* মাদ্রাসার তথ্য */}
       <div className="text-center mb-6">
-        <h2 className="text-xl font-bold mb-2">{data.madrasahName}</h2>
-        <p className="text-gray-600">{data.markazName}</p>
-        <p className="text-gray-600">মাদ্রাসা কোড: {data.madrasahCode}</p>
+        <h2 className="text-xl font-bold mb-2">{toBengaliNumber(data.madrasahName)}</h2>
+        <p className="text-gray-600">{toBengaliNumber(data.markazName)}</p>
+        <p className="text-gray-600">মাদ্রাসা কোড: {toBengaliNumber(data.madrasahCode)}</p>
         <p className="text-gray-600">মোট পরীক্ষার্থী: {toBengaliNumber(data.totalStudents)}</p>
       </div>
 
@@ -48,15 +48,20 @@ export function MadrasahResultDisplay({ data }: { data: MadrasahResult }) {
                 {students.map((student, index) => (
                   <tr key={student.registrationNo} className="hover:bg-gray-50">
                     <td className="border p-2 text-center">{toBengaliNumber(index + 1)}</td>
-                    <td className="border p-2">{student.name}</td>
-                    <td className="border p-2">{student.registrationNo}</td>
-                    <td className="border p-2">{student.rollNo}</td>
-                    <td className="border p-2">{student.fatherName}</td>
-                    <td className="border p-2 text-center">{student.totalMarks}</td>
+                    <td className="border p-2">{toBengaliNumber(student.name)}</td>
+                    <td className="border p-2">{toBengaliNumber(student.registrationNo)}</td>
+                    <td className="border p-2">{toBengaliNumber(student.rollNo)}</td>
+                    <td className="border p-2">{toBengaliNumber(student.fatherName)}</td>
+                    <td className="border p-2 text-center">{toBengaliNumber(student.totalMarks)}</td>
                     <td className="border p-2 text-center">
-                      {student.average === '#######' ? '-' : student.average}
+                      {student.average !== '#######' &&
+                        student.average !== '#উওঠ/০!' &&
+                        student.average !== 'অনু.' ?
+                        toBengaliNumber(student.average) :
+                        '-'
+                      }
                     </td>
-                    <td className="border p-2">{student.division}</td>
+                    <td className="border p-2">{toBengaliNumber(student.division)}</td>
                   </tr>
                 ))}
               </tbody>

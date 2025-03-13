@@ -2,6 +2,7 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Search } from 'lucide-react';
 
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { IndividualSearchForm } from '@/components/forms/IndividualSearchForm';
@@ -34,6 +35,7 @@ export default function SearchPage() {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [examTypes, setExamTypes] = useState<string[]>([]);
+  const [showResult, setShowResult] = useState(false);
   const marhalahTypes = [
     'আত তাখাসসুস ফিল ফিকহি ওয়াল ইফতা',
     'ফযীলত (স্নাতক)',
@@ -90,6 +92,7 @@ export default function SearchPage() {
 
       if (response.data.success && response.data.data) {
         setResult(response.data.data);
+        setShowResult(true);
       } else {
         setErrorMessage(response.data.error || 'কোনো ফলাফল পাওয়া যায়নি');
       }
@@ -100,52 +103,69 @@ export default function SearchPage() {
     }
   };
 
+  const handleReturn = () => {
+    setShowResult(false);
+    setResult(null);
+  };
+
   return (
     <div className='min-h-screen bg-gray-100 py-8 font-kalpurush'>
       <div className='mx-auto max-w-4xl rounded-lg bg-white p-3 md:p-6 shadow-lg'>
-        <Header />
-        <SearchTypeToggle
-          searchType={searchType}
-          setSearchType={setSearchType}
-        />
+        {showResult ? (
+          <>
+            <button
+              onClick={handleReturn}
+              className="mb-6 flex items-center text-xs bg-gray-400 text-white px-4 py-2 rounded-lg hover:text-gray-800"
+            >
+              <Search className="w-5 h-5 mr-2" />
+              সার্চ পেজে ফিরে যান
+            </button>
+            <ResultDisplay
+              examType={examType}
+              result={result as StudentResult | MadrasahResult}
+              searchType={searchType}
+            />
+          </>
+        ) : (
+          <>
+            <Header />
+            <SearchTypeToggle
+              searchType={searchType}
+              setSearchType={setSearchType}
+            />
 
-        <form onSubmit={handleSubmit} className='space-y-4 mb-8 print:hidden'>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            {searchType === 'individual' ? (
-              <IndividualSearchForm
-                examType={examType}
-                setExamType={setExamType}
-                marhalah={marhalah}
-                setMarhalah={setMarhalah}
-                registrationNo={registrationNo}
-                setRegistrationNo={setRegistrationNo}
-                rollNo={rollNo}
-                setRollNo={setRollNo}
-                examTypes={examTypes}
-                marhalahTypes={marhalahTypes}
-              />
-            ) : (
-              <MadrasahSearchForm
-                examType={examType}
-                setExamType={setExamType}
-                madrasahCode={madrasahCode}
-                setMadrasahCode={setMadrasahCode}
-                mobileNo={mobileNo}
-                setMobileNo={setMobileNo}
-                examTypes={examTypes}
-              />
-            )}
-          </div>
-          <SubmitButton loading={loading} />
-        </form>
+            <form onSubmit={handleSubmit} className='space-y-4 mb-8 print:hidden'>
+              <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                {searchType === 'individual' ? (
+                  <IndividualSearchForm
+                    examType={examType}
+                    setExamType={setExamType}
+                    marhalah={marhalah}
+                    setMarhalah={setMarhalah}
+                    registrationNo={registrationNo}
+                    setRegistrationNo={setRegistrationNo}
+                    rollNo={rollNo}
+                    setRollNo={setRollNo}
+                    examTypes={examTypes}
+                    marhalahTypes={marhalahTypes}
+                  />
+                ) : (
+                  <MadrasahSearchForm
+                    examType={examType}
+                    setExamType={setExamType}
+                    madrasahCode={madrasahCode}
+                    setMadrasahCode={setMadrasahCode}
+                    mobileNo={mobileNo}
+                    setMobileNo={setMobileNo}
+                    examTypes={examTypes}
+                  />
+                )}
+              </div>
+              <SubmitButton loading={loading} />
+            </form>
 
-        {errorMessage && <ErrorMessage message={errorMessage} />}
-        {result && (
-          <ResultDisplay
-            examType={examType}
-            result={result}
-            searchType={searchType}
-          />
+            {errorMessage && <ErrorMessage message={errorMessage} />}
+          </>
         )}
       </div>
     </div>

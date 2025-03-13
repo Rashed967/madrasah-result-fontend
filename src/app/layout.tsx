@@ -1,8 +1,9 @@
-'use server';
+'use client';
 
 import React from 'react';
+// import '@/styles/globals.css'; // Ensure this path is correct
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;

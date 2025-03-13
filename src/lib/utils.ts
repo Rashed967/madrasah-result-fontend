@@ -13,9 +13,16 @@ export function toBengaliNumber(number: number | string | undefined): string {
   return number.toString().replace(/[0-9]/g, (digit) => bengaliNumerals[parseInt(digit)]);
 }
 
-export function toEnglishNumber(number: number | string | undefined): string {
+export function toEnglishNumber(number: string | number | undefined): string {
   if (number === undefined || number === null) return '';
 
   const englishNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  return number.toString().replace(/[০-৯]/g, (digit) => englishNumerals[parseInt(digit)]);
+  const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  const isBengaliNumber = bengaliNumerals.some((numeral) => number.toString().includes(numeral));
+
+  if (isBengaliNumber) {
+    return number.toString().replace(/[০-৯]/g, (digit) => englishNumerals[bengaliNumerals.indexOf(digit)]);
+  }
+
+  return number.toString();
 }

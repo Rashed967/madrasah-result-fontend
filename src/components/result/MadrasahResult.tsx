@@ -36,34 +36,42 @@ export function MadrasahResultDisplay({ data }: { data: MadrasahResult }) {
                 <tr className="bg-gray-50">
                   <th className="border p-2">ক্রমিক</th>
                   <th className="border p-2">নাম</th>
-                  <th className="border p-2">রেজি. নং</th>
                   <th className="border p-2">রোল</th>
-                  <th className="border p-2">পিতার নাম</th>
+                  {/* Dynamically create headers for each subject */}
+                  {Object.keys(students[0].marks).map((subject) => (
+                    <th key={subject} className="border p-2">{toBengaliNumber(subject)}</th>
+                  ))}
                   <th className="border p-2">মোট নম্বর</th>
-                  <th className="border p-2">গড়</th>
-                  <th className="border p-2">ডিভিশন</th>
+                  <th className="border p-2">গড়</th>
+                  <th className="border p-2">বিভাগ</th>
+                  <th className="border p-2">মেধা স্থান</th>
+
                 </tr>
               </thead>
               <tbody>
-                {students.map((student, index) => (
-                  <tr key={student.registrationNo} className="hover:bg-gray-50">
-                    <td className="border p-2 text-center">{toBengaliNumber(index + 1)}</td>
-                    <td className="border p-2">{toBengaliNumber(student.name)}</td>
-                    <td className="border p-2">{toBengaliNumber(student.registrationNo)}</td>
-                    <td className="border p-2">{toBengaliNumber(student.rollNo)}</td>
-                    <td className="border p-2">{toBengaliNumber(student.fatherName)}</td>
-                    <td className="border p-2 text-center">{toBengaliNumber(student.totalMarks)}</td>
-                    <td className="border p-2 text-center">
-                      {student.average !== '#######' &&
-                        student.average !== '#উওঠ/০!' &&
-                        student.average !== 'অনু.' ?
-                        toBengaliNumber(student.average) :
-                        '-'
-                      }
-                    </td>
-                    <td className="border p-2">{toBengaliNumber(student.division)}</td>
-                  </tr>
-                ))}
+                {students.map((student, index) => {
+                  const totalSubjects = Object.keys(student.marks).length;
+                  const avarageMarks = toBengaliNumber((Number(toEnglishNumber(student.totalMarks)) / totalSubjects).toFixed(2));
+
+                  return (
+                    <tr key={student.registrationNo} className="hover:bg-gray-50">
+                      <td className="border p-2 text-center">{toBengaliNumber(index + 1)}</td>
+                      <td className="border p-2">{toBengaliNumber(student.name)}</td>
+                      <td className="border p-2">{toBengaliNumber(student.rollNo)}</td>
+                      {/* Display marks for each subject in separate columns */}
+                      {Object.entries(student.marks).map(([subject, mark]) => (
+                        <td key={subject} className="border p-2 text-center">{toBengaliNumber(mark)}</td>
+                      ))}
+                      <td className="border p-2 text-center">{toBengaliNumber(student.totalMarks)}</td>
+                      <td className="border p-2 text-center">{
+                        avarageMarks
+                      }</td>
+                      <td className="border p-2">{toBengaliNumber(student.division)}</td>
+                      <td className="border p-2">{toBengaliNumber(student.rank)}</td>
+
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

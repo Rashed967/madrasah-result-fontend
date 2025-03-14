@@ -10,6 +10,7 @@ import { MadrasahResult } from '@/types/madrasah';
 import { MadrasahResultDisplay } from './result/MadrasahResult';
 
 import { StudentResult } from '@/types/student';
+import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
 
 interface ResultDisplayProps {
   result: StudentResult | MadrasahResult;
@@ -71,6 +72,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
       </div>
       <PrintButton contentRef={contentRef} />
+      {/* <StudentResultPdf result={result} /> */}
     </div>
   );
 }

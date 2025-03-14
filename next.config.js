@@ -14,6 +14,10 @@ const nextConfig = {
   //     },
   //   ]
   // },
+  experimental: {
+    esmExternals: 'loose', // ESM প্যাকেজ গুলো লুজ মোডে কনভার্ট করবে
+  },
+  transpilePackages: ['@react-pdf/renderer'], // ESM প্যাকেজকে ট্রান্সপাইল করবে
 
   webpack(config) {
     // Grab the existing rule that handles SVG imports

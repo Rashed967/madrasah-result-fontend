@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import '../app/globals.css';
 
@@ -11,6 +12,8 @@ import { MadrasahResultDisplay } from './result/MadrasahResult';
 
 import { StudentResult } from '@/types/student';
 import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
+import { Printer } from 'lucide-react';
+import Link from 'next/link';
 
 interface ResultDisplayProps {
   result: StudentResult | MadrasahResult;
@@ -19,7 +22,23 @@ interface ResultDisplayProps {
 }
 
 export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
+  const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const dataToSave = {
+      result,
+      examType,
+      searchType
+    };
+    localStorage.setItem('studentResultData', JSON.stringify(dataToSave));
+  }, [result, examType, searchType]);
+
+  const handlePrintClick = async () => {
+    router.push('/student-result');
+
+  };
 
   return (
     <div ref={contentRef} className='result-container text-sm relative'>
@@ -57,7 +76,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
       ) : (
         <MadrasahResultDisplay data={result as MadrasahResult} />
       )}
-      <div className='signature '>
+      {/* <div className='signature '>
         <Image
           src='/images/signature.jpg'
           alt='signature'
@@ -70,10 +89,25 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
           পরীক্ষা নিয়ন্ত্রক
         </p>
         <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
+      </div> */}
+      <div className='print-button mt-6 flex justify-center'>
+        <button
+          onClick={handlePrintClick}
+          disabled={isLoading}
+          className='rounded-lg bg-gray-700 w-64 py-1 text-white text-sm hover:bg-gray-600 transition-colors disabled:opacity-50'
+        >
+          {isLoading ? (
+            <span>অপেক্ষা করুন...</span>
+          ) : (
+            <>
+              <Printer className='inline-block w-3 h-4 mr-1' /> প্রিন্ট করুন
+            </>
+          )}
+        </button>
+
       </div>
-      <PrintButton contentRef={contentRef} />
       {/* <StudentResultPdf result={result} /> */}
-    </div>
+    </div >
   );
 }
 

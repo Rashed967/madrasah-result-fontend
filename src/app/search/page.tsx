@@ -178,16 +178,7 @@ export default function SearchPage() {
           )}
         </div>
       </div>
-      <StudentResultPdf result={result} />
-      {/* {showResult &&
 
-        // <PDFDownloadLink document={<MyDocument />} fileName="result.pdf">
-        //   <button className="mb-6 flex items-center text-xs bg-gray-400 text-white px-4 py-2 rounded-lg hover:text-gray-800">
-        //     পিডিএফ ডাউনলোড করুন
-        //   </button>
-        // </PDFDownloadLink>
-
-      } */}
     </>
   );
 }

@@ -38,7 +38,7 @@ export function StudentInfo({ result }: StudentInfoProps) {
 }
 
 // Helper component for info rows
-function InfoRow({ label, value }: { label: string; value: string }) {
+export function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className='border-b border-gray-300 student-info-item'>
       <div className='grid grid-cols-[100px,1fr] justify-start items-center py-2 student-info-row'>

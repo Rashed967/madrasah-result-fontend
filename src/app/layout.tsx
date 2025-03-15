@@ -1,4 +1,5 @@
 'use client';
+import '@/app/globals.css';
 
 import React from 'react';
 // import '@/styles/globals.css'; // Ensure this path is correct

@@ -22,6 +22,8 @@ interface ResultDisplayProps {
   searchType: 'individual' | 'madrasah';
 }
 
+
+
 export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -36,11 +38,11 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
     localStorage.setItem('studentResultData', JSON.stringify(dataToSave));
   }, [result, examType, searchType]);
 
+
   const handlePrintClick = async () => {
     router.push('/student-result');
 
   };
-
 
 
   const handleMadrasahPdfDownload = async () => {
@@ -50,16 +52,17 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
       const html2pdf = (await import('html2pdf.js')).default;
       const opt = {
-        margin: [15, 15, 15, 15],  // [top, left, bottom, right] in mm
+        margin: [6, 4, 6, 4],
         filename: `${(result as MadrasahResult).madrasahName}-result.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
+        pagebreak: { mode: ['avoid-all'] },
         html2canvas: {
           scale: 2,
           backgroundColor: null,
           useCORS: true,
           logging: true,
           letterRendering: true,
-          width: 297 * 3.78, // A4 width in pixels (297mm)
+          width: 297 * 3.78,
           windowWidth: 297 * 3.78,
         },
         jsPDF: {
@@ -67,16 +70,19 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
           format: 'a4',
           orientation: 'landscape',
           compress: true,
-          putTotalPages: true,
-          precision: 16
+          precision: 16,
+          putOnlyUsedFonts: true,
+          floatPrecision: 16
         }
       };
 
       await html2pdf().set(opt).from(element).save();
+      window.print();
     } catch (error) {
       console.error('Error generating PDF:', error);
     }
   };
+
 
   return (
     <div ref={contentRef} className='result-container text-sm relative'>
@@ -128,6 +134,17 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         </>
       ) : (
         <>
+          <div className='print-button mt-6 flex justify-center'>
+            <button
+              onClick={handleMadrasahPdfDownload}
+              className='rounded-lg bg-green-700 w-64 py-1 text-white text-sm hover:bg-green-600 transition-colors'
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="inline-block w-3 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              ডাউনলোড PDF
+            </button>
+          </div>
           <MadrasahResultDisplay data={result as MadrasahResult} />
           <div className='print-button mt-6 flex justify-center'>
             <button

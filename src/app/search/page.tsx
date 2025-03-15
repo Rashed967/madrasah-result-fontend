@@ -8,13 +8,14 @@ import { ErrorMessage } from '@/components/ErrorMessage';
 import { IndividualSearchForm } from '@/components/forms/IndividualSearchForm';
 import { MadrasahSearchForm } from '@/components/forms/MadrasahSearchForm';
 import { Header } from '@/components/Header';
-import { ResultDisplay } from '@/components/ResultDisplay';
+
 import { SearchTypeToggle } from '@/components/SearchTypeToggle';
 import { SubmitButton } from '@/components/SubmitButton';
 import { MadrasahApiResponse, MadrasahResult } from '@/types/madrasah';
 import { StudentResult, StudentApiResponse } from '@/types/student';
 import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { ResultDisplay } from '@/components/ResultDisplay';
 
 interface ApiResponse {
   success: boolean;
@@ -127,6 +128,7 @@ export default function SearchPage() {
                 <Search className="w-5 h-5 mr-2" />
                 সার্চ পেজে ফিরে যান
               </button>
+
               <ResultDisplay
                 examType={examType}
                 result={result as StudentResult | MadrasahResult}

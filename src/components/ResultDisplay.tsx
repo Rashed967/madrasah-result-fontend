@@ -77,6 +77,22 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
   return (
     <div ref={contentRef} className='result-container text-sm relative'>
+      <div className='mb-8 border-b pb-4'>
+        <div className='flex items-center justify-center gap-6 md:gap-8'>
+          <Image
+            src='/images/logo.jpg'
+            alt='logo'
+            width={60}
+            height={60}
+            priority
+            quality={100}
+            className='object-contain'
+          />
+          <div className='text-center'>
+            <h1 className='text-xl md:text-3xl font-bold '>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
+          </div>
+        </div>
+      </div>
       <div className='print-header hidden print:block'>
         <div className='print-header-logo'>
           <Image

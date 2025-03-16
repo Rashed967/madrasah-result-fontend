@@ -44,7 +44,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
   }, [result, examType, searchType]);
 
 
-  const handlePrintClick = async () => {
+  const handleStudentPdfDownload = async () => {
     router.push('/student-result');
 
   };
@@ -132,7 +132,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
           <MarkSheet result={result as StudentResult} />
           <div className='print-button mt-6 flex justify-center'>
             <button
-              onClick={handlePrintClick}
+              onClick={handleStudentPdfDownload}
               disabled={isLoading}
               className='rounded-lg bg-gray-700 w-64 py-1 text-white text-sm hover:bg-gray-600 transition-colors disabled:opacity-50'
             >

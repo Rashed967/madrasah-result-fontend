@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium-min';
 import { NextResponse } from 'next/server';
 import { MadrasahResult } from '@/types/madrasah';
 import { toBengaliNumber, toEnglishNumber } from '@/lib/utils';
@@ -22,11 +23,23 @@ export async function POST(request: Request) {
     const signaturePath = path.join(process.cwd(), 'public', 'images', 'signature.jpg');
     const signatureBase64 = fs.readFileSync(signaturePath, { encoding: 'base64' });
 
-    // Launch browser
-    const browser = await puppeteer.launch({
-      headless: true,  // Changed from 'new' to true
-      args: ['--no-sandbox']
-    });
+    let browser;
+    if (process.env.NODE_ENV === 'development') {
+      // For local development
+      const puppeteerDev = require('puppeteer');
+      browser = await puppeteerDev.launch({
+        headless: true,
+        args: ['--no-sandbox']
+      });
+    } else {
+      // For production (Vercel)
+      browser = await puppeteer.launch({
+        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+        defaultViewport: chromium.defaultViewport,
+        executablePath: await chromium.executablePath(),
+        headless: true,
+      });
+    }
 
     const page = await browser.newPage();
 
@@ -262,8 +275,11 @@ export async function POST(request: Request) {
       }
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error generating PDF:', error);
-    return Response.json({ error: 'PDF generation failed' }, { status: 500 });
+    return Response.json({
+      error: 'PDF generation failed',
+      details: error.message
+    }, { status: 500 });
   }
 } 

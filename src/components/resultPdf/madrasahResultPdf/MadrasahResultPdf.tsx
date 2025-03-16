@@ -16,7 +16,16 @@ export function MadrasahResultPdf({ result, examType }: MadrasahResultPdfProps) 
   }, [result]);
 
   return (
-    <div id="madrasah-pdf-content" className="w-[297mm] min-h-[210mm] bg-white font-kalpurush box-border">
+    <div
+      id="madrasah-pdf-content"
+      className="bg-white font-kalpurush"
+      style={{
+        width: '1123px',
+        margin: '0 auto',
+        minHeight: '794px',
+        padding: '1rem'
+      }}
+    >
       <div className="px-8 pt-2 pb-2 break-inside-avoid box-border">
         <div className="relative border-b border-gray-400 pb-2 mb-1">
           <Image
@@ -68,59 +77,51 @@ export function MadrasahResultPdf({ result, examType }: MadrasahResultPdfProps) 
 
       <div className="px-8 box-border">
         {Object.entries(result.resultsByClass).map(([className, students], index) => (
-          <>
-            {/* {index > 0 && <div className="html2pdf__page-break" />} */}
-            <div key={className} className="box-border  mb-6">
+          <div key={className} className="box-border mb-6">
+            <div className='mt-1 mb-1'>
+              <h3 className="text-center font-semibold text-lg mb-2">
+                {className}
+              </h3>
 
-              <div className='mt-1 mb-1'>
-                <h3 className="text-center font-semibold text-lg mb-2">
-                  {className}
-                </h3>
-
-                <div className="flex items-start mb-2 mt-1">
-                  <div className="text-sm">
-                    <p>মাদরাসা কোড <span className='ml-6 mr-1'>:</span> <span className='font-bold'>{toBengaliNumber(result.madrasahCode)}</span></p>
-                    <p>মাদরাসার নাম <span className='ml-6 mr-1'>:</span> <span className='font-bold'>{toBengaliNumber(result.madrasahName)}</span></p>
-                  </div>
+              <div className="flex items-start mb-2 mt-1">
+                <div className="text-sm">
+                  <p>মাদরাসা কোড <span className='ml-6 mr-1'>:</span> <span className='font-bold'>{toBengaliNumber(result.madrasahCode)}</span></p>
+                  <p>মাদরাসার নাম <span className='ml-6 mr-1'>:</span> <span className='font-bold'>{toBengaliNumber(result.madrasahName)}</span></p>
                 </div>
               </div>
-
-              <table className="w-full border-collapse border border-gray-400 text-sm box-border">
-                <thead>
-                  <tr className="bg-gray-100 h-8">
-                    <th className="border border-gray-400 p-1.5 w-12 align-middle">ক্র.নং</th>
-                    <th className="border border-gray-400 p-1.5 align-middle">নাম</th>
-                    <th className="border border-gray-400 p-1.5 w-16 align-middle">রোল</th>
-                    {Object.keys(students[0].marks).map(subject => (
-                      <th key={subject} className="border border-gray-400 p-1.5 w-16 align-middle">{subject}</th>
-                    ))}
-                    <th className="border border-gray-400 p-1.5 w-16 align-middle">মোট</th>
-                    <th className="border border-gray-400 p-1.5 align-middle">বিভাগ</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.map((student, idx) => {
-                    // const needsPageBreak = idx > 0 && idx % 20 === 0;
-                    return (
-                      <>
-                        {/* {needsPageBreak && <div className="html2pdf__page-break" />} */}
-                        <tr key={student.registrationNo} className="h-8">
-                          <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(idx + 1)}</td>
-                          <td className="border border-gray-400 p-1.5 align-middle">{student.name}</td>
-                          <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(student.rollNo)}</td>
-                          {Object.values(student.marks).map((mark, idx) => (
-                            <td key={idx} className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(mark)}</td>
-                          ))}
-                          <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(student.totalMarks)}</td>
-                          <td className="border border-gray-400 p-1.5 align-middle">{student.division}</td>
-                        </tr>
-                      </>
-                    );
-                  })}
-                </tbody>
-              </table>
             </div>
-          </>
+
+            <table className="w-full border-collapse border border-gray-400 text-sm box-border">
+              <thead>
+                <tr className="bg-gray-100 h-8">
+                  <th className="border border-gray-400 p-1.5 w-12 align-middle">ক্র.নং</th>
+                  <th className="border border-gray-400 p-1.5 align-middle">নাম</th>
+                  <th className="border border-gray-400 p-1.5 w-16 align-middle">রোল</th>
+                  {Object.keys(students[0].marks).map(subject => (
+                    <th key={subject} className="border border-gray-400 p-1.5 w-16 align-middle">{subject}</th>
+                  ))}
+                  <th className="border border-gray-400 p-1.5 w-16 align-middle">মোট</th>
+                  <th className="border border-gray-400 p-1.5 align-middle">বিভাগ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((student, idx) => {
+                  return (
+                    <tr key={student.registrationNo} className="h-8">
+                      <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(idx + 1)}</td>
+                      <td className="border border-gray-400 p-1.5 align-middle">{student.name}</td>
+                      <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(student.rollNo)}</td>
+                      {Object.values(student.marks).map((mark, idx) => (
+                        <td key={idx} className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(mark)}</td>
+                      ))}
+                      <td className="border border-gray-400 p-1.5 text-center align-middle">{toBengaliNumber(student.totalMarks)}</td>
+                      <td className="border border-gray-400 p-1.5 align-middle">{student.division}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         ))}
       </div>
 

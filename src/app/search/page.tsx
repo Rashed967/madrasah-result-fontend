@@ -123,10 +123,10 @@ export default function SearchPage() {
             <>
               <button
                 onClick={handleReturn}
-                className="mb-6 flex items-center text-xs bg-gray-400 text-white px-4 py-2 rounded-lg hover:text-gray-800"
+                className="mb-6 flex items-center w-24 text-xs bg-gray-400 text-white px-2 py-2 rounded-lg hover:text-gray-800"
               >
-                <Search className="w-5 h-5 mr-2" />
-                সার্চ পেজে ফিরে যান
+                <Search className="w-3 h-3 mr-2" />
+                রেসাল্ট সার্চ
               </button>
 
               <ResultDisplay

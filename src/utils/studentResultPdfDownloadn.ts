@@ -6,11 +6,17 @@ const handlePdfDownload = async (studentName: string) => {
     .set({
       filename: `${studentName}-result.pdf`,
       margin: 0,
-      image: { type: 'jpeg', quality: 0.98 },
+      image: {
+        type: 'jpeg',
+        quality: 1.0
+      },
       html2canvas: {
-        scale: 2,
-        backgroundColor: null,
-        height: 297 * 3.78, // A4 height in pixels
+        scale: 4,
+        useCORS: true,
+        logging: false,
+        letterRendering: true,
+        backgroundColor: '#ffffff',
+        height: 297 * 3.78,
         windowHeight: 297 * 3.78
       },
       jsPDF: {
@@ -18,7 +24,9 @@ const handlePdfDownload = async (studentName: string) => {
         format: 'a4',
         orientation: 'portrait',
         putOnlyUsedFonts: true,
-        compress: true
+        compress: true,
+        precision: 16,
+        userUnit: 1.0
       }
     })
     .from(pdfRef)

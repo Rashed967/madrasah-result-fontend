@@ -10,32 +10,7 @@ import { useRouter } from 'next/navigation';
 import handlePdfDownload from '@/utils/studentResultPdfDownloadn';
 import { IoMdClose } from 'react-icons/io';
 
-// export const handlePdfDownload = async () => {
-//   const pdfRef = document.getElementById("pdf-content");
-//   const html2pdf = (await import('html2pdf.js')).default
 
-//   html2pdf()
-//     .set({
-//       filename: "result.pdf",
-//       margin: 0,
-//       image: { type: 'jpeg', quality: 0.98 },
-//       html2canvas: {
-//         scale: 2,
-//         backgroundColor: null,
-//         height: 297 * 3.78, // A4 height in pixels
-//         windowHeight: 297 * 3.78
-//       },
-//       jsPDF: {
-//         unit: 'mm',
-//         format: 'a4',
-//         orientation: 'portrait',
-//         putOnlyUsedFonts: true,
-//         compress: true
-//       }
-//     })
-//     .from(pdfRef)
-//     .save();
-// }
 
 const GenerateStudentResultPdf = () => {
   const [resultData, setResultData] = useState<any>(null);
@@ -127,7 +102,7 @@ const GenerateStudentResultPdf = () => {
           </div>
           <div className="w-[210mm] md:mt-20 transform scale-[0.45] sm:scale-[0.6] md:scale-[0.8] lg:scale-100 origin-top mt-32">
             <div id="pdf-content" className="w-[210mm] h-[297mm] bg-white px-8 py-4 font-kalpurush">
-              <div className="relative border-b border-gray-400 pb-2 mb-4 mt-2">
+              <div className="relative border-b border-black pb-2 mb-4 mt-2">
                 <Image
                   src='/images/logo.jpg'
                   alt='logo'
@@ -136,18 +111,18 @@ const GenerateStudentResultPdf = () => {
                   priority
                   quality={100}
                   unoptimized
-                  className='absolute left-24 top-4'
+                  className='absolute left-20 top-4'
                 />
                 <div className='text-center pt-2'>
-                  <h1 className='text-2xl font-bold mb-2'>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
-                  <h3 className='text-lg mb-1'>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
+                  <h1 className='text-[24px] font-bold '>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
+                  <h3 className='text-lg '>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
                   <p className='text-sm'>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
                 </div>
               </div>
 
               <div className='text-center mb-4 mt-2'>
-                <h2 className='text-lg font-bold mb-1'>{examType}</h2>
-                <p className='text-base'>মারহালা: {result.class}</p>
+                <h2 className='text-xl font-bold mb-1'>{examType}</h2>
+                <p className='text-[18px] font-semibold'>মারহালা: {result.class}</p>
               </div>
 
               <div className='grid grid-cols-2  gap-0 mb-6 student-info-container'>
@@ -160,7 +135,7 @@ const GenerateStudentResultPdf = () => {
                 <InfoRow label='পিতার নাম' value={result.fatherName} />
                 <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
                 <InfoRow label='প্রাপ্ত বিভাগ' value={result.division} />
-                <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType || 'নিয়মিত'} />
+                <InfoRow label='আবেদনের ধরণ' value={result.examineeType || 'নিয়মিত'} />
                 <InfoRow
                   label='মেধা স্থান'
                   value={toBengaliNumber(result.rank || '-')}
@@ -176,21 +151,21 @@ const GenerateStudentResultPdf = () => {
               </div>
 
               <div className='flex justify-center items-center mb-3 mt-4'>
-                <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title border-black border-b-[1.5px]'>
-                  প্রাপ্ত নম্বর
+                <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title border-black border-b-2'>
+                  নম্বরপত্র
                 </h6>
               </div>
               <div className='overflow-x-auto rounded-md mark-sheet-container '>
                 <table className='w-full border-collapse mark-sheet-table'>
                   <thead>
                     <tr className='bg-green-700 text-white text-center mark-sheet-header'>
-                      <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
+                      <th className='border border-gray-300 px-4 py-2 text-base text-center mark-sheet-cel'>
                         ক্রমিক
                       </th>
-                      <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
+                      <th className='border border-gray-300 px-4 py-2 text-base text-center mark-sheet-cel'>
                         বিষয়
                       </th>
-                      <th className='border border-gray-300 px-4 py-2 text-sm text-center mark-sheet-cel'>
+                      <th className='border border-gray-300 px-4 py-2 text-base text-center mark-sheet-cel'>
                         প্রাপ্ত নম্বর
                       </th>
                     </tr>
@@ -205,13 +180,13 @@ const GenerateStudentResultPdf = () => {
                             : 'bg-white mark-sheet-row-odd'
                         }
                       >
-                        <td className='border border-gray-300 px-4 py-2 text-center w-14 md:w-24 mark-sheet-cel'>
+                        <td className='border border-gray-300 text-base px-4 py-2 text-center w-14 md:w-24 mark-sheet-cel'>
                           {toBengaliNumber(index + 1)}
                         </td>
-                        <td className='border border-gray-300 px-4 py-2 text-center mark-sheet-cel'>
+                        <td className='border border-gray-300 px-4 text-base py-2 text-center mark-sheet-cel'>
                           {subject}
                         </td>
-                        <td className='border border-gray-300 px-4 py-2 text-center w-22 mark-sheet-cel mark-sheet-marks'>
+                        <td className='border border-gray-300 px-4 py-2 text-base text-center w-22 mark-sheet-cel mark-sheet-marks'>
                           {toBengaliNumber(marks as string)}
                         </td>
                       </tr>

@@ -57,7 +57,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         return;
       }
 
-      await generateMadrasahPdf(result as MadrasahResult);
+      await generateMadrasahPdf(result as MadrasahResult, examType);
 
     } catch (error) {
       console.error('Error downloading PDF:', error);

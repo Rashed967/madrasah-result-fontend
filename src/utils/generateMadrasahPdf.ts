@@ -1,6 +1,6 @@
 import { MadrasahResult } from "@/types/madrasah";
 
-export const generateMadrasahPdf = async (result: MadrasahResult) => {
+export const generateMadrasahPdf = async (result: MadrasahResult, examType: string) => {
   try {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -35,7 +35,7 @@ export const generateMadrasahPdf = async (result: MadrasahResult) => {
         reject(new Error('Network error'));
       };
 
-      xhr.send(JSON.stringify(result));
+      xhr.send(JSON.stringify({ result, examType }));
     });
 
   } catch (error) {

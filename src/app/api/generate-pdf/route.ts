@@ -1,13 +1,14 @@
 import puppeteer from 'puppeteer';
 import { NextResponse } from 'next/server';
 import { MadrasahResult } from '@/types/madrasah';
-import { toBengaliNumber } from '@/lib/utils';
+import { toBengaliNumber, toEnglishNumber } from '@/lib/utils';
 import fs from 'fs';
 import path from 'path';
 
 export async function POST(request: Request) {
   try {
-    const result = await request.json() as MadrasahResult;
+    const { result, examType } = await request.json() as { result: MadrasahResult, examType: string };
+    console.log({ result, examType });
 
     // Read font file
     const fontPath = path.join(process.cwd(), 'public', 'fonts', 'kalpurush.ttf');
@@ -16,6 +17,10 @@ export async function POST(request: Request) {
     // Read logo
     const logoPath = path.join(process.cwd(), 'public', 'images', 'logo.jpg');
     const logoBase64 = fs.readFileSync(logoPath, { encoding: 'base64' });
+
+    // Read signature
+    const signaturePath = path.join(process.cwd(), 'public', 'images', 'signature.jpg');
+    const signatureBase64 = fs.readFileSync(signaturePath, { encoding: 'base64' });
 
     // Launch browser
     const browser = await puppeteer.launch({
@@ -44,11 +49,12 @@ export async function POST(request: Request) {
             }
             body {
               padding: 20px;
+              margin: 10px 10px;
             }
             .header {
               position: relative;
-              margin-bottom: 20px;
-              padding-bottom: 25px;
+              margin-bottom: 30px;
+              padding-bottom: 20px;
               border-bottom: 1px solid #000;
               display: flex;
               align-items: center;
@@ -67,11 +73,12 @@ export async function POST(request: Request) {
             }
             .header h1 {
               font-size: 24px;
-              margin-bottom: 2px;
+              margin-bottom: 1px;
             }
             .header h2 {
               font-size: 18px;
               margin-bottom: 1px;
+              font-weight: normal;
             }
             .header p {
               font-size: 14px;
@@ -111,13 +118,14 @@ export async function POST(request: Request) {
             }
           </style>
         </head>
-        <body>
+        <body style="position: relative; top: 0; left: 0; right: 0; ">
           <div class="header">
             <img src="data:image/jpeg;base64,${logoBase64}" class="logo">
             <div class="header-content">
               <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
               <h2>[বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ]</h2>
               <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টিভি রোড পূব রামপুরা ঢাকা-১২১৯</p>
+              <h2 style="font-size: 18px; font-weight: normal;">${examType}</h2>
             </div>
             <div class="marks-distribution">
               <div style="text-align: center; border-bottom: 0.3px solid #000; margin-bottom: 5px;">
@@ -148,14 +156,16 @@ export async function POST(request: Request) {
             </div>
           </div>
 
-          ${Object.entries(result.resultsByClass).map(([className, students]) => `
+          ${Object.entries(result.resultsByClass).map(([className, students], classIndex) => `
             <div class="class-section">
               <h3 style="text-align: center; margin: 15px 0;">${className}</h3>
+              ${classIndex === 0 ? `
               <div>
                 <p><span style="display: inline-block; width: 80px;">মাদরাসা কোড</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${result.madrasahCode}</p>
-                <p><span style="display: inline-block; width: 80px;">মাদরাসা</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> <span style="font-weight: bold;">${result.madrasahName}</span></p>
+                <p><span style="display: inline-block; width: 80px;">মাদরাসা</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> <span style="font-weight: bold;">${toBengaliNumber(result.madrasahName)}</span></p>
                 <p><span style="display: inline-block; width: 80px;">মারকায</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${result.markazName}</p>
               </div>
+              ` : ''}
               <table>
                 <thead>
                   <tr>
@@ -182,7 +192,10 @@ export async function POST(request: Request) {
       `<td>${toBengaliNumber(mark)}</td>`
     ).join('')}
                       <td>${toBengaliNumber(student.totalMarks)}</td>
-                      <td>${toBengaliNumber(student.average)}</td>
+                   
+                      <td>${toBengaliNumber(
+      (Number(toEnglishNumber(student.totalMarks)) / Object.keys(student.marks).length).toFixed(2)
+    )}</td>
                       <td>${student.division}</td>
                       <td>${student.rank}</td>
                       <td>${''}</td>
@@ -192,6 +205,26 @@ export async function POST(request: Request) {
               </table>
             </div>
           `).join('')}
+
+          <div style="position: relative; min-height: 200px; margin-top: 30px;">
+            <div style="font-size: 14px; margin-bottom: 16px; text-align: left;">
+              <p>বি.দ্র.: ফলাফলের মধ্যে কোন ভুল-ত্রুটি পরিলক্ষিত হলে অথবা কোন বিষয়ে জানতে চাইলে ৩০ দিনের মধ্যে বোর্ড অফিসে যোগাযোগ করুন।</p>
+              <p>* পরীক্ষার্থীর ফলাফল বিষয়ে কোন অভিযোগ থাকলে ৭ দিনের মধ্যে লিখিতভাবে বোর্ড অফিসে জানাতে হবে।</p>
+            </div>
+
+            <div style="position: absolute; top: 100px; right: 40px; text-align: center;">
+              <div>
+                <img
+                  src="data:image/jpeg;base64,${signatureBase64}"
+                  alt="signature"
+                  style="width: 80px; height: 60px; transform: rotate(-4deg);"
+                />
+                <p style="border-bottom: 1px solid black; margin-bottom: 4px;">পরীক্ষা নিয়ন্ত্রক</p>
+                <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
+              </div>
+            </div>
+          </div>
+
         </body>
       </html>
     `;

@@ -2,44 +2,35 @@ import { MadrasahResult } from "@/types/madrasah";
 
 export const generateMadrasahPdf = async (result: MadrasahResult, examType: string) => {
   try {
-    return new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', '/api/generate-pdf', true);
-      xhr.responseType = 'blob';
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
-      xhr.onload = function () {
-        if (this.status === 200) {
-          const blob = new Blob([this.response], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          a.download = `${result.madrasahName}.pdf`;
-          document.body.appendChild(a);
-          a.click();
-
-          // Clean up
-          setTimeout(() => {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-          }, 100);
-
-          resolve(true);
-        } else {
-          reject(new Error('PDF generation failed'));
-        }
-      };
-
-      xhr.onerror = function () {
-        reject(new Error('Network error'));
-      };
-
-      xhr.send(JSON.stringify({ result, examType }));
+    const response = await fetch('/api/generate-pdf', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ result, examType }),
     });
 
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    // Create temporary link and trigger download
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `${result.madrasahName}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+
+    // Cleanup
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
   } catch (error) {
-    console.error('Error:', error);
-    throw error;
+    console.error('Error generating PDF:', error);
+    throw new Error('PDF ডাউনলোড করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
   }
 }; 

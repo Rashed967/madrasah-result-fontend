@@ -53,14 +53,20 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
   const handleMadrasahPdfDownload = async () => {
     try {
       if (!result) {
-        console.error('No result data found');
-        return;
+        throw new Error('ফলাফলের তথ্য পাওয়া যায়নি');
       }
+
+      // Add loading state
+      setIsLoading(true);
 
       await generateMadrasahPdf(result as MadrasahResult, examType);
 
     } catch (error) {
       console.error('Error downloading PDF:', error);
+      // Show error to user (you can use a toast or alert)
+      alert(error instanceof Error ? error.message : 'PDF ডাউনলোড করতে সমস্যা হয়েছে');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -77,17 +83,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
   return (
     <div ref={contentRef} className='result-container text-sm relative'>
-      <div className='print-button mt-6 flex justify-center absolute -top-[75px] right-0'>
-        <button
-          onClick={handleMadrasahPdfDownload}
-          className='rounded-lg bg-green-700 w-24 py-1 text-white text-sm hover:bg-green-600 transition-colors'
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="inline-block w-3 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-          </svg>
-          ডাউনলোড
-        </button>
-      </div>
+
       <div className='mb-8 border-b pb-4'>
         <div className='flex items-center justify-center gap-6 md:gap-8'>
           <Image
@@ -152,6 +148,24 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         </>
       ) : (
         <>
+          <div className='print-button mt-6 flex justify-center absolute -top-[75px] right-0'>
+            <button
+              onClick={handleMadrasahPdfDownload}
+              disabled={isLoading}
+              className='rounded-lg bg-green-700 w-24 py-1 text-white text-sm hover:bg-green-600 transition-colors disabled:opacity-50'
+            >
+              {isLoading ? (
+                <span>লোড হচ্ছে...</span>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="inline-block w-3 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  ডাউনলোড
+                </>
+              )}
+            </button>
+          </div>
 
           <MadrasahResultDisplay data={result as MadrasahResult} />
 

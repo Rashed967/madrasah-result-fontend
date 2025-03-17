@@ -16,10 +16,11 @@ const nextConfig = {
   // },
   experimental: {
     esmExternals: 'loose', // ESM প্যাকেজ গুলো লুজ মোডে কনভার্ট করবে
+    serverActions: true,
   },
   transpilePackages: ['@react-pdf/renderer'], // ESM প্যাকেজকে ট্রান্সপাইল করবে
 
-  webpack(config) {
+  webpack(config, { isServer }) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),
@@ -47,6 +48,10 @@ const nextConfig = {
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
+
+    if (isServer) {
+      config.externals.push('puppeteer');
+    }
 
     return config;
   },

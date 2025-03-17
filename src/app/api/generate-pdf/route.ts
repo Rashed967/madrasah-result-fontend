@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium-min';
 import { NextResponse } from 'next/server';
 import { MadrasahResult } from '@/types/madrasah';
@@ -6,10 +6,28 @@ import { toBengaliNumber, toEnglishNumber } from '@/lib/utils';
 import fs from 'fs';
 import path from 'path';
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
+  // console.log('Generating PDF for madrasah result:', req);
   try {
-    const { result, examType } = await request.json() as { result: MadrasahResult, examType: string };
-    console.log({ result, examType });
+    const data = await req.json();
+
+
+    // Debug data structure
+
+
+    // Check if resultsByClass exists
+    if (!data.result?.resultsByClass) {
+      throw new Error('মাদ্রাসার ফলাফল ডেটা পাওয়া যায়নি');
+    }
+
+
+    // Launch puppeteer with platform-specific configuration
+    const browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+
+    const page = await browser.newPage();
 
     // Read font file
     const fontPath = path.join(process.cwd(), 'public', 'fonts', 'kalpurush.ttf');
@@ -22,26 +40,6 @@ export async function POST(request: Request) {
     // Read signature
     const signaturePath = path.join(process.cwd(), 'public', 'images', 'signature.jpg');
     const signatureBase64 = fs.readFileSync(signaturePath, { encoding: 'base64' });
-
-    let browser;
-    if (process.env.NODE_ENV === 'development') {
-      // For local development
-      const puppeteerDev = require('puppeteer');
-      browser = await puppeteerDev.launch({
-        headless: true,
-        args: ['--no-sandbox']
-      });
-    } else {
-      // For production (Vercel)
-      browser = await puppeteer.launch({
-        args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
-        defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
-        headless: true,
-      });
-    }
-
-    const page = await browser.newPage();
 
     // Set content with embedded styles
     const content = `
@@ -138,7 +136,7 @@ export async function POST(request: Request) {
               <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
               <h2>[বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ]</h2>
               <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টিভি রোড পূব রামপুরা ঢাকা-১২১৯</p>
-              <h2 style="font-size: 18px; font-weight: normal;">${examType}</h2>
+              <h2 style="font-size: 18px; font-weight: normal;">${data.examType}</h2>
             </div>
             <div class="marks-distribution">
               <div style="text-align: center; border-bottom: 0.3px solid #000; margin-bottom: 5px;">
@@ -169,14 +167,14 @@ export async function POST(request: Request) {
             </div>
           </div>
 
-          ${Object.entries(result.resultsByClass).map(([className, students], classIndex) => `
+          ${Object.entries(data.result.resultsByClass).map(([className, students], classIndex) => `
             <div class="class-section">
               <h3 style="text-align: center; margin: 15px 0;">${className}</h3>
               ${classIndex === 0 ? `
               <div>
-                <p><span style="display: inline-block; width: 80px;">মাদরাসা কোড</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${result.madrasahCode}</p>
-                <p><span style="display: inline-block; width: 80px;">মাদরাসা</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> <span style="font-weight: bold;">${toBengaliNumber(result.madrasahName)}</span></p>
-                <p><span style="display: inline-block; width: 80px;">মারকায</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${result.markazName}</p>
+                <p><span style="display: inline-block; width: 80px;">মাদরাসা কোড</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${data.result.madrasahCode}</p>
+                <p><span style="display: inline-block; width: 80px;">মাদরাসা</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> <span style="font-weight: bold;">${toBengaliNumber(data.result.madrasahName)}</span></p>
+                <p><span style="display: inline-block; width: 80px;">মারকায</span> <span style="margin-left: 15px; margin-right: 10px;">:</span> ${data.result.markazName}</p>
               </div>
               ` : ''}
               <table>
@@ -185,7 +183,7 @@ export async function POST(request: Request) {
                     <th style="width: 35px; font-size: 14px; font-weight: normal;">ক্র.</th>
                     <th style="width: 50px; font-size: 14px; font-weight: normal;">রোল নং</th>
                     <th style="width: 150px; font-size: 14px; font-weight: normal;">পরীক্ষার্থীর নাম</th>
-                    ${Object.keys(students[0].marks).map(subject =>
+                    ${Object.keys((students as any[])[0].marks).map(subject =>
       `<th style="width: 50px; font-size: 14px; font-weight: normal;">${subject}</th>`
     ).join('')}
                     <th style="width: 50px; font-size: 14px; font-weight: normal;">মোট নম্বর</th>
@@ -196,13 +194,13 @@ export async function POST(request: Request) {
                   </tr>
                 </thead>
                 <tbody>
-                  ${students.map((student, idx) => `
+                  ${(students as any[]).map((student, idx) => `
                     <tr>
                       <td>${toBengaliNumber(idx + 1)}</td>
                       <td>${toBengaliNumber(student.rollNo)}</td>
                       <td>${student.name}</td>
-                      ${Object.values(student.marks).map(mark =>
-      `<td>${toBengaliNumber(mark)}</td>`
+                      ${Object.values(student.marks).map((mark) =>
+      `<td>${toBengaliNumber(mark as number)}</td>`
     ).join('')}
                       <td>${toBengaliNumber(student.totalMarks)}</td>
                    
@@ -263,23 +261,22 @@ export async function POST(request: Request) {
 
     await browser.close();
 
-    // Return PDF buffer with correct headers
-    return new Response(pdfBuffer, {
+    return new NextResponse(pdfBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `attachment; filename="${encodeURIComponent(result.madrasahName)}.pdf"`,
-        'Cache-Control': 'public, max-age=0, must-revalidate',
-        'Content-Length': pdfBuffer.length.toString(),
-        'X-Content-Type-Options': 'nosniff',
-        'Accept-Ranges': 'bytes'
-      }
+        'Content-Disposition': 'attachment; filename=result.pdf',
+      },
     });
 
-  } catch (error: any) {
-    console.error('Error generating PDF:', error);
-    return Response.json({
-      error: 'PDF generation failed',
-      details: error.message
-    }, { status: 500 });
+  } catch (error) {
+    console.error('PDF generation error:', error);
+    return NextResponse.json(
+      {
+        error: 'PDF generation failed',
+        message: 'PDF জেনারেট করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
   }
 } 

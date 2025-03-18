@@ -3,18 +3,18 @@ export interface StudentResult {
   registrationNo: string;
   rollNo: string;
   fatherName: string;
-  dateOfBirth: string;
+  dateOfBirth?: string;
   madrasahName: string;
   madrasahCode: string;
   class: string;
-  marks: {
-    [key: string]: string;
-  };
-  totalMarks: string;
-  average: string;
   division: string;
+  examineeType?: string;
+  marks: {
+    [key: string]: number;
+  };
+  totalMarks: number;
+  average: string;
   rank: string;
-  examineeType: string;
 }
 
 export interface StudentApiResponse {

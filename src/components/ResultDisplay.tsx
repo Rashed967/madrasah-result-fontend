@@ -16,6 +16,7 @@ import { StudentResult } from '@/types/student';
 
 import { Printer } from 'lucide-react';
 import { generateMadrasahPdf } from '@/utils/generateMadrasahPdf';
+import { generateStudentPdf } from '@/utils/generateStudentPdf';
 
 
 interface ResultDisplayProps {
@@ -27,6 +28,7 @@ interface ResultDisplayProps {
 
 
 export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
+  console.log('Result object:', result);
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -42,8 +44,19 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
 
   const handleStudentPdfDownload = async () => {
-    router.push('/student-result');
+    if ('resultsByClass' in result) {
+      console.error('Cannot generate student PDF for madrasah result');
+      return;
+    }
 
+    setIsLoading(true);
+    try {
+
+      await generateStudentPdf(result, examType);
+    } catch (error) {
+      console.error('PDF generation error:', error);
+    }
+    setIsLoading(false);
   };
 
 
@@ -90,7 +103,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         </div>
       </div>
       <div className='print-header hidden print:block'>
-        <div className='print-header-logo'>
+        <div className='print-header-logo print:hidden'>
           <Image
             src='/images/logo.jpg'
             alt='logo'
@@ -119,7 +132,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
         <>
           <StudentInfo result={result as StudentResult} />
           <MarkSheet result={result as StudentResult} />
-          <div className='print-button mt-6 flex justify-center'>
+          <div className='print-button mt-6 flex justify-center print:hidden'>
             <button
               onClick={handleStudentPdfDownload}
               disabled={isLoading}

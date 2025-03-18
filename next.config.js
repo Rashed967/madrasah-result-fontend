@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true, // Static Routing ফিক্স করবে
-  basePath: process.env.NODE_ENV === 'production' ? '/test2' : '',
+  // basePath: process.env.NODE_ENV === 'production' ? '/test2' : '',
 
   reactStrictMode: true,
   swcMinify: true,

@@ -1,5 +1,6 @@
 'use client';
 
+import { toBengaliNumber } from '@/lib/utils';
 import { MadrasahResult } from '@/types/madrasah';
 
 export const generateMadrasahPdf = async (result: MadrasahResult, examType: string) => {
@@ -34,48 +35,55 @@ export const generateMadrasahPdf = async (result: MadrasahResult, examType: stri
           </div>
         </div>
 
-        <div style="margin: 20px 0;">
-          <p><span style="display: inline-block; width: 100px;">মাদরাসা কোড</span> : ${result.madrasahCode}</p>
-          <p><span style="display: inline-block; width: 100px;">মাদরাসা</span> : ${result.madrasahName}</p>
-          <p><span style="display: inline-block; width: 100px;">মারকায</span> : ${result.markazName}</p>
-        </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-          <thead>
-            <tr>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">ক্র.</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">রোল নং</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">পরীক্ষার্থীর নাম</th>
-              ${Object.keys(result.resultsByClass[Object.keys(result.resultsByClass)[0]][0].marks)
-        .map(subject => `<th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${subject}</th>`).join('')}
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">মোট নম্বর</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">গড় নম্বর</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">বিভাগ</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">স্থান</th>
-              <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">মান</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${Object.entries(result.resultsByClass).map(([className, students]) =>
-          students.map((student, idx) => `
+        ${Object.entries(result.resultsByClass).map(([className, students]) => `
+          <div style="page-break-before: always;">
+            <h2 style="text-align: center; margin-bottom: 15px;">${className}</h2>
+            
+            <div style="margin-bottom: 20px;">
+              <p><span style="display: inline-block; width: 100px;">মাদরাসা কোড</span> : ${result.madrasahCode}</p>
+              <p><span style="display: inline-block; width: 100px; font-weight: bold;">মাদরাসা</span> : ${result.madrasahName}</p>
+              <p><span style="display: inline-block; width: 100px;">মারকায</span> : ${result.markazName}</p>
+            </div>
+
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
                 <tr>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${idx + 1}</td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${student.rollNo}</td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${student.name}</td>
-                  ${Object.values(student.marks).map(mark =>
-            `<td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${mark}</td>`).join('')}
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${student.totalMarks}</td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">
-                    ${(Number(student.totalMarks) / Object.keys(student.marks).length).toFixed(2)}
-                  </td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${student.division}</td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${student.rank || ''}</td>
-                  <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;"></td>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 40px;">ক্র.</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 60px;">রোল নং</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 160px;">পরীক্ষার্থীর নাম</th>
+                  ${Object.keys(students[0].marks)
+        .map(subject => `<th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px;">${subject}</th>`)
+        .join('')}
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">মোট নম্বর</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">গড় নম্বর</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">বিভাগ</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">স্থান</th>
+                  <th style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">মান</th>
                 </tr>
-              `).join('')
-        ).join('')}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+                ${students.map((student, idx) => `
+                  <tr>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${toBengaliNumber(idx + 1)}</td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${student.rollNo}</td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${student.name}</td>
+                    ${Object.values(student.marks)
+            .map(mark => `<td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${mark}</td>`)
+            .join('')}
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${student.totalMarks}</td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">
+                      ${(Number(student.totalMarks) / Object.keys(student.marks).length).toFixed(2)}
+                    </td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 50px;">${student.division}</td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 36px;">${student.rank || ''}</td>
+                    <td style="border: 1px solid #000; padding: 6px 4px; font-size: 14px; width: 36px;">${''}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `).join('')}
       </div>
     `;
 
@@ -91,11 +99,14 @@ export const generateMadrasahPdf = async (result: MadrasahResult, examType: stri
         }
         @page {
           size: landscape;
-          margin: 15mm;
+          margin: 10mm;
         }
         body {
           margin: 0;
           padding: 0;
+        }
+        th, td{
+          text-align: center;
         }
       }
     `;

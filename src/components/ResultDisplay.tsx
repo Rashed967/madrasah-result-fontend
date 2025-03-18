@@ -1,25 +1,22 @@
+'use client';
+
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+
 
 import '../app/globals.css';
 
-import PrintButton from './PrintButton';
 import { MarkSheet } from './result/MarkSheet';
 import { StudentInfo } from './result/StudentInfo';
 import { MadrasahResult } from '@/types/madrasah';
 import { MadrasahResultDisplay } from './result/MadrasahResult';
 
 import { StudentResult } from '@/types/student';
-import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
+
 import { Printer } from 'lucide-react';
-import Link from 'next/link';
-import { MadrasahResultPdf } from './resultPdf/madrasahResultPdf/MadrasahResultPdf';
 import { generateMadrasahPdf } from '@/utils/generateMadrasahPdf';
+
 
 interface ResultDisplayProps {
   result: StudentResult | MadrasahResult;
@@ -52,19 +49,11 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
   const handleMadrasahPdfDownload = async () => {
     try {
-      if (!result) {
-        throw new Error('ফলাফলের তথ্য পাওয়া যায়নি');
-      }
-
-      // Add loading state
       setIsLoading(true);
-
       await generateMadrasahPdf(result as MadrasahResult, examType);
-
     } catch (error) {
-      console.error('Error downloading PDF:', error);
-      // Show error to user (you can use a toast or alert)
-      alert(error instanceof Error ? error.message : 'PDF ডাউনলোড করতে সমস্যা হয়েছে');
+      console.error('Error:', error);
+      alert('প্রিন্ট করতে সমস্যা হয়েছে');
     } finally {
       setIsLoading(false);
     }
@@ -169,26 +158,47 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
           <MadrasahResultDisplay data={result as MadrasahResult} />
 
-          {/* PDF Content - Hidden but not with display:none */}
-          <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
-            <MadrasahResultPdf result={result as MadrasahResult} examType={examType} />
+          {/* Print Content */}
+          <div id="madrasah-result-pdf" style={{ display: 'none' }}>
+            <div className='print-header'>
+              <div className='logo-title'>
+                <Image
+                  src='/images/logo.jpg'
+                  alt='logo'
+                  width={75}
+                  height={75}
+                  priority
+                />
+                <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
+                <h3>[বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ]</h3>
+                <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
+                <h2>{examType}</h2>
+              </div>
+
+              <div className='marks-distribution'>
+                <div className='distribution-title'>বিভাগ বিন্যাস</div>
+                <table>
+                  <tr><td>মোট কিতাব</td><td>: ৪০০ × ৮ = ৩২০০</td></tr>
+                  <tr><td>মুখস্থ (৩য় খন্ড)</td><td>: ৮০ × ৮ = ৬৪০</td></tr>
+                  <tr><td>জরুরি বিষয় (১ম খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
+                  <tr><td>জরুরি (২য় খন্ড)</td><td>: ৪০ × ৮ = ৩২০</td></tr>
+                  <tr><td>অনুশীলন (৩য় খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
+                </table>
+              </div>
+            </div>
+
+            <div className='madrasah-info'>
+              <p><span>মাদরাসা কোড</span> : {(result as MadrasahResult).madrasahCode}</p>
+              <p><span>মাদরাসা</span> : {(result as MadrasahResult).madrasahName}</p>
+              <p><span>মারকায</span> : {(result as MadrasahResult).markazName}</p>
+            </div>
+
+            <div className='print-content'>
+              <MadrasahResultDisplay data={result as MadrasahResult} />
+            </div>
           </div>
         </>
       )}
-      {/* <div className='signature '>
-        <Image
-          src='/images/signature.jpg'
-          alt='signature'
-          width={80}
-          height={60}
-          priority
-          className='-rotate-[4deg] '
-        />
-        <p className='signature-text border-b-[0.1px] mb-1 border-black'>
-          পরীক্ষা নিয়ন্ত্রক
-        </p>
-        <p>(মাওলানা ফয়সাল উমর ফারুক)</p>
-      </div> */}
     </div >
   );
 }

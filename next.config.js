@@ -21,23 +21,21 @@ const nextConfig = {
   transpilePackages: ['@react-pdf/renderer'], // ESM প্যাকেজকে ট্রান্সপাইল করবে
 
   webpack(config, { isServer }) {
-    // Grab the existing rule that handles SVG imports
+    // SVG handling
     const fileLoaderRule = config.module.rules.find((rule) =>
       rule.test?.test?.('.svg'),
     );
 
     config.module.rules.push(
-      // Reapply the existing rule, but only for svg imports ending in ?url
       {
         ...fileLoaderRule,
         test: /\.svg$/i,
-        resourceQuery: /url/, // *.svg?url
+        resourceQuery: /url/,
       },
-      // Convert all other *.svg imports to React components
       {
         test: /\.svg$/i,
         issuer: { not: /\.(css|scss|sass)$/ },
-        resourceQuery: { not: /url/ }, // exclude if *.svg?url
+        resourceQuery: { not: /url/ },
         loader: '@svgr/webpack',
         options: {
           dimensions: false,
@@ -46,11 +44,28 @@ const nextConfig = {
       },
     );
 
-    // Modify the file loader rule to ignore *.svg, since we have it handled now.
     fileLoaderRule.exclude = /\.svg$/i;
 
     if (isServer) {
       config.externals.push('puppeteer');
+    }
+
+    // Font handling
+    config.module.rules.push({
+      test: /\.(ttf|woff|woff2|eot)$/,
+      type: 'asset/resource',
+      generator: {
+        filename: 'static/fonts/[name][ext]'
+      }
+    });
+
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        stream: false,
+        path: false
+      };
     }
 
     return config;

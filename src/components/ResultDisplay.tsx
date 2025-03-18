@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -88,13 +87,11 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
       <div className='mb-8 border-b pb-4'>
         <div className='flex items-center justify-center gap-6 md:gap-8'>
-          <Image
+          <img
             src='/images/logo.jpg'
             alt='logo'
             width={60}
             height={60}
-            priority
-            quality={100}
             className='object-contain'
           />
           <div className='text-center'>
@@ -104,12 +101,11 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
       </div>
       <div className='print-header hidden print:block'>
         <div className='print-header-logo print:hidden'>
-          <Image
+          <img
             src='/images/logo.jpg'
             alt='logo'
             width={75}
             height={75}
-            priority
           />
         </div>
         <div className='print-header-content'>
@@ -175,12 +171,11 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
           <div id="madrasah-result-pdf" style={{ display: 'none' }}>
             <div className='print-header'>
               <div className='logo-title'>
-                <Image
+                <img
                   src='/images/logo.jpg'
                   alt='logo'
                   width={75}
                   height={75}
-                  priority
                 />
                 <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
                 <h3>[বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ]</h3>
@@ -191,11 +186,13 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
               <div className='marks-distribution'>
                 <div className='distribution-title'>বিভাগ বিন্যাস</div>
                 <table>
-                  <tr><td>মোট কিতাব</td><td>: ৪০০ × ৮ = ৩২০০</td></tr>
-                  <tr><td>মুখস্থ (৩য় খন্ড)</td><td>: ৮০ × ৮ = ৬৪০</td></tr>
-                  <tr><td>জরুরি বিষয় (১ম খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
-                  <tr><td>জরুরি (২য় খন্ড)</td><td>: ৪০ × ৮ = ৩২০</td></tr>
-                  <tr><td>অনুশীলন (৩য় খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
+                  <tbody>
+                    <tr><td>মোট কিতাব</td><td>: ৪০০ × ৮ = ৩২০০</td></tr>
+                    <tr><td>মুখস্থ (৩য় খন্ড)</td><td>: ৮০ × ৮ = ৬৪০</td></tr>
+                    <tr><td>জরুরি বিষয় (১ম খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
+                    <tr><td>জরুরি (২য় খন্ড)</td><td>: ৪০ × ৮ = ৩২০</td></tr>
+                    <tr><td>অনুশীলন (৩য় খন্ড)</td><td>: ৫৫ × ৮ = ৪৪০</td></tr>
+                  </tbody>
                 </table>
               </div>
             </div>

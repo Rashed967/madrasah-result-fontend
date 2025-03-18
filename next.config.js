@@ -1,19 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
+  output: 'export',
+  trailingSlash: true, // Static Routing ফিক্স করবে
+  basePath: process.env.NODE_ENV === 'production' ? '/test2' : '',
 
   reactStrictMode: true,
   swcMinify: true,
 
-  // Uncoment to add domain whitelist
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'res.cloudinary.com',
-  //     },
-  //   ]
-  // },
   experimental: {
     esmExternals: 'loose', // ESM প্যাকেজ গুলো লুজ মোডে কনভার্ট করবে
     serverActions: true,

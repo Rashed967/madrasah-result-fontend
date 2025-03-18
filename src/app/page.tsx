@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import * as React from 'react';
 import '@/lib/env';
 
@@ -24,9 +23,9 @@ export default function HomePage() {
           display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
           gap: '-2px'
         }} className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
-          <Image
+          <img
             src='/images/logo.jpg'
-            alt='Madrasah Logo'
+            alt='জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ লোগো'
             className='mx-auto mb-2 h-20 rounded-full'
             width={80}
             height={80}

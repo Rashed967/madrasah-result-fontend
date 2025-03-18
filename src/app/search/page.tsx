@@ -16,6 +16,8 @@ import { StudentResult, StudentApiResponse } from '@/types/student';
 import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { ResultDisplay } from '@/components/ResultDisplay';
+import { getAllSheets } from '@/app/server_apis/get_all_sheets';
+import { searchResult } from '@/app/server_apis/search_student_result';
 
 interface ApiResponse {
   success: boolean;
@@ -56,10 +58,10 @@ export default function SearchPage() {
   useEffect(() => {
     const fetchExamTypes = async () => {
       try {
-        const response = await axios.get('/api/sheets');
+        const response = await getAllSheets();
 
-        if (response.data.success) {
-          setExamTypes(response.data.data);
+        if (response.success) {
+          setExamTypes(response.data);
         }
       } catch (_error) {
         // Handle error if needed
@@ -92,20 +94,21 @@ export default function SearchPage() {
             mobileNo,
           };
 
-      const response = await axios.post<StudentApiResponse | MadrasahApiResponse>('/api/search', payload);
+      const response = await searchResult(payload);
       console.log(response.data);
 
-      if (response.data.success && response.data.data) {
-        setResult(response.data.data);
+      if (response.success && response.data) {
+        setResult(response.data);
         setShowResult(true);
         if (searchType === 'individual') {
-          setStudents([response.data.data as StudentResult]);
+          setStudents([response.data as StudentResult]);
         }
       } else {
-        setErrorMessage(response.data.error || 'কোনো ফলাফল পাওয়া যায়নি');
+        console.log(response.message);
+        setErrorMessage(response.message || 'কোনো ফলাফল পাওয়া যায়নি');
       }
-    } catch (_error) {
-      setErrorMessage('দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+    } catch (_error: any) {
+      setErrorMessage(_error.message || 'দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।');
     } finally {
       setLoading(false);
     }
@@ -118,7 +121,7 @@ export default function SearchPage() {
 
   return (
     <>
-      <div className='min-h-screen bg-gray-100 py-8 font-kalpurush'>
+      <div className='min-h-screen bg-gray-100 py-8 font-kalpurush px-2'>
         <div className='mx-auto max-w-4xl rounded-lg bg-white p-3 md:p-6 shadow-lg'>
           {showResult ? (
             <>

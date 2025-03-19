@@ -3,6 +3,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { IndividualSearchForm } from '@/components/forms/IndividualSearchForm';
@@ -27,6 +28,7 @@ interface ApiResponse {
 }
 
 export default function SearchPage() {
+  const router = useRouter();
   const [searchType, setSearchType] = useState<'individual' | 'madrasah'>(
     'individual',
   );
@@ -75,39 +77,27 @@ export default function SearchPage() {
     e.preventDefault();
     setLoading(true);
     setErrorMessage('');
-    setResult(null);
 
     try {
-      const payload =
-        searchType === 'individual'
-          ? {
-            searchType,
-            examType,
-            marhalah,
-            registrationNo,
-            rollNo,
-          }
-          : {
-            searchType,
-            examType,
-            madrasahCode,
-            mobileNo,
-          };
+      const payload = searchType === 'individual'
+        ? { searchType, examType, marhalah, registrationNo, rollNo }
+        : { searchType, examType, madrasahCode, mobileNo };
 
       const response = await searchResult(payload);
 
-
       if (response.success && response.data) {
-        setResult(response.data);
-        setShowResult(true);
-        if (searchType === 'individual') {
-          setStudents([response.data as StudentResult]);
-        }
+        // Save data and redirect instead of showing result
+        localStorage.setItem('studentResultData', JSON.stringify({
+          result: response.data,
+          examType,
+          searchType
+        }));
+        router.push('/result-view');
       } else {
         setErrorMessage(response.message || 'কোনো ফলাফল পাওয়া যায়নি');
       }
-    } catch (_error: any) {
-      setErrorMessage(_error.message || 'দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+    } catch (error: any) {
+      setErrorMessage(error.message || 'দুঃখিত, কোনো সমস্যা হয়েছে।');
     } finally {
       setLoading(false);
     }

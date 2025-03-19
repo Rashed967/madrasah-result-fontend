@@ -52,7 +52,7 @@ export function MadrasahResultView({ result, examType, isLoading }: MadrasahResu
               </div>
 
               {/* Division Layout */}
-              <div className=" border border-black p-[2px] px-1.5 text-[14px] absolute right-0 top-[0px] w-[210px] ">
+              <div className=" border border-black p-[2px] px-1.5 text-[14px] absolute right-0 bottom-[20px] w-[210px] ">
                 <div className="text-center border-b border-black mb-1.5">বিভাগ বিন্যাস</div>
 
                 <div className="px-1">

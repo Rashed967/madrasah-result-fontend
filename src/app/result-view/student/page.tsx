@@ -10,16 +10,7 @@ export default function StudentResultViewPage() {
   const [resultData, setResultData] = useState<any>(null);
 
   const handleBack = () => {
-    try {
-      const previousPage = document.referrer;
-      if (previousPage && previousPage.includes('/search')) {
-        window.history.back();
-      } else {
-        router.push('/search');
-      }
-    } catch (error) {
-      router.push('/search');
-    }
+    router.push('/search');
   };
 
   useEffect(() => {

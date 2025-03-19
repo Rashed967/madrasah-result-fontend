@@ -9,7 +9,7 @@ export default function ResultViewPage() {
   useEffect(() => {
     const savedData = localStorage.getItem('studentResultData');
     if (!savedData) {
-      window.location.href = '/search';
+      router.replace('/search');
       return;
     }
 
@@ -19,14 +19,14 @@ export default function ResultViewPage() {
         throw new Error('Invalid data');
       }
 
-      // Redirect based on search type using window.location
+      // Redirect based on search type using router.replace()
       if (data.searchType === 'individual') {
-        window.location.href = '/result-view/student';
+        router.replace('/result-view/student');
       } else {
-        window.location.href = '/result-view/madrasah';
+        router.replace('/result-view/madrasah');
       }
     } catch (error) {
-      window.location.href = '/search';
+      router.replace('/search');
     }
   }, [router]);
 

@@ -7,7 +7,7 @@ interface PrintButtonProps {
 
 export function PrintButton({ isLoading, onClick }: PrintButtonProps) {
   return (
-    <div className='print-button mt-6 flex justify-center print:hidden'>
+    <div className='print-button mt-6 flex justify-center'>
       <button
         onClick={onClick}
         disabled={isLoading}

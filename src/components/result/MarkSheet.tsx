@@ -5,8 +5,8 @@ import { StudentResult } from '@/types/student';
 export function MarkSheet({ result }: { result: StudentResult }) {
   return (
     <>
-      <div className='flex justify-center items-center mb-3 mt-4 print:hidden'>
-        <h6 className='text-center text-xl font-normal mb-1 mark-sheet-title border-black border-b-[1.5px]'>
+      <div className='flex justify-center items-center mb-3 mt-4 '>
+        <h6 className='text-center text-xl font-normal mb-1  border-black border-b-[1.5px]'>
           প্রাপ্ত নম্বর
         </h6>
       </div>

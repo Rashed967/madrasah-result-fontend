@@ -110,8 +110,8 @@ export default function SearchPage() {
 
   return (
     <>
-      <div className='min-h-screen bg-gray-100 py-8 font-kalpurush px-2'>
-        <div className='mx-auto max-w-4xl rounded-lg bg-white p-3 md:p-6 shadow-lg'>
+      <div className='min-h-screen bg-gray-100 py-8 print:py-0 font-kalpurush px-2'>
+        <div className='mx-auto max-w-4xl print:max-w-full rounded-lg bg-white p-3 print:p-0 md:p-6  shadow-lg'>
           {showResult ? (
             <>
               <button

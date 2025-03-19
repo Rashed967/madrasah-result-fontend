@@ -38,7 +38,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
   };
 
   return (
-    <div className='result-container text-sm relative'>
+    <div className='result-container bg-white p-4 text-sm relative print:h-[297mm]'>
       {searchType === 'individual' ? (
         <StudentResultView
           result={result as StudentResult}

@@ -31,11 +31,12 @@ export default function ResultViewPage() {
   }
 
   return (
-    <div className='min-h-screen bg-gray-100 py-8 font-kalpurush'>
-      <div className='mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-lg'>
+    <div className=' bg-gray-100 font-kalpurush w-11/12 md:w-3/4 max-w-screen-lg mx-auto mt-4  md:mt-24 border border-gray-300 print:w-full print:h-[297mm]
+    print:border-none print:shadow-none  print:mt-0 print:px-0 '>
+      <div className=' bg-white  px-4 md:px-8 '>
         <button
           onClick={() => router.push('/search')}
-          className='mb-6 text-sm text-gray-600 hover:text-gray-800'
+          className='mb-6 text-sm text-gray-600 hover:text-gray-800 print:hidden'
         >
           ← ফিরে যান
         </button>

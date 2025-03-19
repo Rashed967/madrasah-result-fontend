@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {img {display: initial;}}
+@layer base {
+  img {
+    display: initial;
+  }
+}
 
 /* body {
   margin: 0 !important;
@@ -21,37 +25,33 @@
   font-display: swap;
 }
 
-/* Update these styles */
-#madrasah-result-pdf {
-  background: white;
-  padding: 20px;
-  font-family: 'Kalpurush', Arial, sans-serif !important;
-  width: 210mm; /* A4 width */
-  min-height: 297mm; /* A4 height */
-  margin: 0 auto;
+/* Print styles */
+@media print {
+  /* Hide/Show elements */
+  .print-hidden {
+    display: none !important;
+  }
+  .print-block {
+    display: block !important;
+  }
+
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 0mm;
+  }
+
+  /* Basic page styles */
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white !important;
+    font-family: 'Kalpurush', Arial, sans-serif !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    position: relative;
+  }
+
+
 }
 
-#madrasah-result-pdf * {
-  font-family: 'Kalpurush', Arial, sans-serif !important;
-}
-
-#madrasah-result-pdf .pdf-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-#madrasah-result-pdf table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
-
-#madrasah-result-pdf th,
-#madrasah-result-pdf td {
-  border: 1px solid #000;
-  padding: 8px;
-  text-align: center;
-}

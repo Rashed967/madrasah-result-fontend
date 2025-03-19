@@ -8,7 +8,7 @@ interface StudentInfoProps {
 
 export function StudentInfo({ result }: StudentInfoProps) {
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 gap-0 mb-6 student-info-container print:block'>
+    <div className='grid grid-cols-1 md:grid-cols-2 print:grid-cols-2 gap-0 mb-6 student-info-container'>
       {/* First Column */}
 
       <InfoRow label='রোল নং' value={toBengaliNumber(result.rollNo)} />
@@ -26,7 +26,7 @@ export function StudentInfo({ result }: StudentInfoProps) {
         value={toBengaliNumber(result.rank || '-')}
       />
 
-      <div className='md:col-span-2'>
+      <div className='md:col-span-2 print:col-span-2'>
         <InfoRow
           label='মাদরাসার নাম'
           value={toBengaliNumber(result.madrasahName)}
@@ -40,11 +40,11 @@ export function StudentInfo({ result }: StudentInfoProps) {
 // Helper component for info rows
 export function InfoRow({ label, value }: { label: string; value?: string }) {
   return (
-    <div className='border-b border-gray-300 student-info-item '>
+    <div className='border-b border-gray-300 student-info-item'>
       <div className='grid grid-cols-[100px,1fr] justify-start items-center py-2 student-info-row'>
         <div className='font-semibold student-info-label'>{label}</div>
         <div className='student-info-value'>
-          <span className='mr-2'>:</span> {value || '-'}
+          <span className='mr-2'>:</span> {value}
         </div>
       </div>
     </div>

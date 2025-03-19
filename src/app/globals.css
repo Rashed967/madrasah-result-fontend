@@ -25,6 +25,7 @@
   font-display: swap;
 }
 
+
 /* Print styles */
 @media print {
   /* Hide/Show elements */
@@ -35,23 +36,61 @@
     display: block !important;
   }
 
-  /* Page setup */
-  @page {
-    size: A4;
-    margin: 0mm;
+  /* @page {
+    size: A4 portrait !important;
+    margin: 12mm 10mm !important;
+  } */
+
+  /* Student result - Portrait mode */
+  .student-result {
+    @page {
+      size: A4 portrait !important;
+      margin: 12mm 10mm !important;
+      width: 210mm !important;
+      height: 297mm !important;
+
+    }  
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    overflow: visible !important;
   }
 
-  /* Basic page styles */
+  /* Madrasah result - Landscape mode */
+  .madrasah-result {
+    @page {
+      size: A4 landscape !important;
+      margin: 12mm 10mm !important;
+    }
+    width: 297mm !important;
+    height: 210mm !important;
+    margin: 0 auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    overflow: visible !important;
+  }
+
+  /* Container styles */
+  .result-container {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-view {
+    box-sizing: border-box !important;
+  }
+
+
+
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     background-color: white !important;
     font-family: 'Kalpurush', Arial, sans-serif !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    position: relative;
   }
-
-
 }
 

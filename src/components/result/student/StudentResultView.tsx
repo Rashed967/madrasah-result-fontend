@@ -8,21 +8,30 @@ import { currentBanglaDate } from '@/utils/currentBannglaDate';
 import PrintHeaderForStudent from '@/components/printHeaderForStudent';
 import Signature from '@/components/Signature';
 import TopHeaderForStudentResultPage from '@/components/TopHeaderForStudentResultPage';
+import { useEffect } from 'react';
 
 interface StudentResultViewProps {
   result: StudentResult;
   examType: string;
   isLoading: boolean;
-  onPrint: () => void;
 }
 
-export function StudentResultView({ result, examType, isLoading, onPrint }: StudentResultViewProps) {
+export function StudentResultView({ result, examType, isLoading }: StudentResultViewProps) {
+
+  useEffect(() => {
+    const style = document.createElement("style");
+    style.innerHTML = `
+        @page { size: A4 portrait !important; margin: 12mm 10mm !important; }
+      `;
+    document.head.appendChild(style);
+  }, []);
   const handlePrint = () => {
+
     window.print();
   };
 
   return (
-    <div className="h-full print:py-3">
+    <div className="print:mx-auto">
       <TopHeaderForStudentResultPage />
       <PrintHeaderForStudent />
 

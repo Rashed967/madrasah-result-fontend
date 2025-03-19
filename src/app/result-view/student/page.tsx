@@ -9,6 +9,19 @@ export default function StudentResultViewPage() {
   const router = useRouter();
   const [resultData, setResultData] = useState<any>(null);
 
+  const handleBack = () => {
+    try {
+      const previousPage = document.referrer;
+      if (previousPage && previousPage.includes('/search')) {
+        window.history.back();
+      } else {
+        router.push('/search');
+      }
+    } catch (error) {
+      router.push('/search');
+    }
+  };
+
   useEffect(() => {
     const savedData = localStorage.getItem('studentResultData');
     if (!savedData) {
@@ -40,8 +53,8 @@ export default function StudentResultViewPage() {
     print:border-none print:shadow-none print:mt-0 print:px-0 '>
       <div className='bg-white px-4 md:px-8 print:px-0'>
         <button
-          onClick={() => router.push('/search')}
-          className='mb-6 text-sm  hover:text-gray-800 print:hidden flex items-center gap-2 px-2 py-1 rounded-md text-white bg-gray-600'
+          onClick={handleBack}
+          className='mb-6 text-sm hover:text-gray-800 print:hidden flex items-center gap-2 px-2 py-1 rounded-md text-white bg-gray-600'
         >
           <Search className='w-4 h-4' />
           ফিরে যান

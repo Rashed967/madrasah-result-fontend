@@ -9,7 +9,7 @@ export default function ResultViewPage() {
   useEffect(() => {
     const savedData = localStorage.getItem('studentResultData');
     if (!savedData) {
-      router.push('/search');
+      window.location.href = '/search';
       return;
     }
 
@@ -19,15 +19,14 @@ export default function ResultViewPage() {
         throw new Error('Invalid data');
       }
 
-      // Redirect based on search type
+      // Redirect based on search type using window.location
       if (data.searchType === 'individual') {
-
-        router.push('/result-view/student');
+        window.location.href = '/result-view/student';
       } else {
-        router.push('/result-view/madrasah');
+        window.location.href = '/result-view/madrasah';
       }
     } catch (error) {
-      router.push('/search');
+      window.location.href = '/search';
     }
   }, [router]);
 
@@ -37,5 +36,5 @@ export default function ResultViewPage() {
         <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-700"></div>
       </div>
     </>
-  )
+  );
 } 

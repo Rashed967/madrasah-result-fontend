@@ -1,6 +1,7 @@
 'use client';
 
 import { ResultDisplay } from '@/components/ResultDisplay';
+import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -36,9 +37,10 @@ export default function MadrasahResultViewPage() {
       <div className='bg-white px-4 md:px-8 print:px-0'>
         <button
           onClick={() => router.push('/search')}
-          className='mb-6 text-sm text-gray-600 hover:text-gray-800 print:hidden'
+          className='mb-6 text-sm  hover:text-gray-800 print:hidden flex items-center gap-2 px-2 py-1 rounded-md text-white bg-gray-600'
         >
-          ← ফিরে যান
+          <Search className='w-4 h-4' />
+          ফিরে যান
         </button>
 
         <ResultDisplay

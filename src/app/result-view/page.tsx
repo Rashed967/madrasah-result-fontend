@@ -21,6 +21,7 @@ export default function ResultViewPage() {
 
       // Redirect based on search type
       if (data.searchType === 'individual') {
+
         router.push('/result-view/student');
       } else {
         router.push('/result-view/madrasah');
@@ -30,5 +31,11 @@ export default function ResultViewPage() {
     }
   }, [router]);
 
-  return <div>Loading...</div>;
+  return (
+    <>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-700"></div>
+      </div>
+    </>
+  )
 } 

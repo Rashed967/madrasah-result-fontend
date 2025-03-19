@@ -49,8 +49,8 @@ export default function StudentResultViewPage() {
   }
 
   return (
-    <div className='bg-gray-100 font-kalpurush mx-auto mt-4 md:mt-24 border border-gray-300  
-    print:border-none print:shadow-none print:mt-0 print:px-0 '>
+    <div className='bg-gray-100 font-kalpurush mx-auto mt-4 md:mt-24 border border-gray-300 max-w-4xl 
+    print:border-none print:shadow-none print:mt-0 print:px-0 print:max-w-none'>
       <div className='bg-white px-4 md:px-8 print:px-0'>
         <button
           onClick={handleBack}

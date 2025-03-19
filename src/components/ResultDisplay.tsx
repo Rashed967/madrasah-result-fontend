@@ -29,13 +29,15 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
     <>
 
       {searchType === 'individual' ? (
-        <div className={` bg-white p-4 text-sm relativ student-result w-full }`}>
+        <div className={` bg-white p-4 text-sm relativ student-result w-full  print:w-full} `}>
+
           <StudentResultView
             result={result as StudentResult}
             examType={examType}
             isLoading={isLoading}
 
           />
+
         </div>
       ) : (
         <div className={` bg-white p-4 text-sm relative madrasah-result  }`}>

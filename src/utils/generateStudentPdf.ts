@@ -3,6 +3,7 @@
 import { StudentResult } from '@/types/student';
 import { toBengaliNumber } from '@/lib/utils';
 import { format } from 'date-fns';
+import { currentBanglaDate } from '@/utils/currentBannglaDate';
 
 export const generateStudentPdf = async (result: StudentResult, examType: string) => {
   console.log('PDF generation result:', result);
@@ -37,9 +38,6 @@ export const generateStudentPdf = async (result: StudentResult, examType: string
 
 // Helper function to generate print content
 const generatePrintContent = (result: StudentResult, examType: string) => {
-  const today = new Date();
-  const formattedDate = format(today, 'dd/MM/yyyy');
-  const bengaliDate = toBengaliNumber(formattedDate);
 
   return `
     <div style=" font-family: 'Kalpurush', Arial, sans-serif;">
@@ -134,7 +132,7 @@ const generatePrintContent = (result: StudentResult, examType: string) => {
           (মাওলানা ফয়সাল উমর ফারুক)
         </p>
         <p style="margin: 0; font-size: 12px; text-align: center;">
-          তারিখ: ${bengaliDate}ঈ.
+          তারিখ: ${currentBanglaDate()}ঈ.
         </p>
       </div>
     </div>

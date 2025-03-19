@@ -2,6 +2,7 @@
 
 import { toBengaliNumber, toEnglishNumber } from '@/lib/utils';
 import { MadrasahResult } from '@/types/madrasah';
+import { currentBanglaDate } from '@/utils/currentBannglaDate';
 
 
 export const generateMadrasahPdf = async (result: MadrasahResult, examType: string) => {
@@ -74,11 +75,11 @@ const generateMadrasahPrintContent = (result: MadrasahResult, examType: string) 
                   <div style="text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px;">বিভাগ বিন্যাস</div>
 
                   <div ‍style="padding: 0px 4px;">
-                  <p style="margin: 0;"> <span style="width: 115px; display: inline-block;">পূর্ণমান</span> <span style="margin-right: 10px;">:</span> ১০০</p>
-                  <p style="margin: 0;"><span style="width: 115px; display: inline-block;">মুমতায(স্টারমার্ক)</span> <span style="margin-right: 10px;">:</span> ৮০</p>
-                  <p style="margin: 0;"><span style="width: 115px; display: inline-block;">জায়্যিদ জিদ্দান(১ম বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৬৫</p>
-                  <p style="margin: 0;"><span style="width: 115px; display: inline-block;">জায়্যিদ(২য় বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৫০</p>
-                  <p style="margin: 0;"><span style="width: 115px; display: inline-block;">মাকবুল(৩য় বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৩৩</p>
+                  <p style="margin: 0; font-size: 11px;"> <span style="width: 115px; display: inline-block;">পূর্ণমান</span> <span style="margin-right: 10px;">:</span> ১০০</p>
+                  <p style="margin: 0; font-size: 11px;"><span style="width: 115px; display: inline-block;">মুমতায(স্টারমার্ক)</span> <span style="margin-right: 10px;">:</span> ৮০</p>
+                  <p style="margin: 0; font-size: 11px;"><span style="width: 115px; display: inline-block;">জায়্যিদ জিদ্দান(১ম বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৬৫</p>
+                  <p style="margin: 0; font-size: 11px;"><span style="width: 115px; display: inline-block;">জায়্যিদ(২য় বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৫০</p>
+                  <p style="margin: 0; font-size: 11px;"><span style="width: 115px; display: inline-block;">মাকবুল(৩য় বিভাগ)</span> <span style="margin-right: 10px;">:</span> ৩৩</p>
                   
                   </div>
 
@@ -143,8 +144,8 @@ const generateMadrasahPrintContent = (result: MadrasahResult, examType: string) 
            
             <div style="position: relative; margin-top: 20px;">
             <div>
-            <p>
-           <span style="font-weight: bold"> বি:দ্র:</span> এ ফলাফল পত্রে কোনো ত্রুটি-বিচ্যুত বা অসংগতি পরিলক্ষিত হলে অথবা কোনো আপত্তি থাকলে তা নিরসনের জন্য এবং নযরে সানীর প্রয়োজন মন করলে প্রতি বিষয়ে মারহালার সমপরিমাণ ফি-সহ যথাযথ কর্তৃপক্ষের মাধ্যমে আগামী ৩০ শাওয়াল এর মধ্যে যথা নিয়মে পরীক্ষা নিয়ন্ত্রণ বিভাগ বরাবর লিখিতভাবে আবেদন করতে হবে।
+            <p style="font-size: 14px;">
+           <span style="font-weight: bold; "> বি:দ্র:</span> এ ফলাফল পত্রে কোনো ত্রুটি-বিচ্যুত বা অসংগতি পরিলক্ষিত হলে অথবা কোনো আপত্তি থাকলে তা নিরসনের জন্য এবং নযরে সানীর প্রয়োজন মন করলে প্রতি বিষয়ে মারহালার সমপরিমাণ ফি-সহ যথাযথ কর্তৃপক্ষের মাধ্যমে আগামী ৩০ শাওয়াল এর মধ্যে যথা নিয়মে পরীক্ষা নিয়ন্ত্রণ বিভাগ বরাবর লিখিতভাবে আবেদন করতে হবে।
               </p>
               </div>
 
@@ -156,6 +157,9 @@ const generateMadrasahPrintContent = (result: MadrasahResult, examType: string) 
               </p>
               <p style="margin: 0; border-top: 1px solid #000; padding-top: 1px;">
               মাওলানা ফয়সাল উমর ফারুক
+              </p>
+              <p style="margin: 0; font-size: 12px;">
+              তারিখ: ${currentBanglaDate()}ঈ.
               </p>
 
               </div>

@@ -40,7 +40,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
         </div>
       ) : (
-        <div className={` bg-white p-4 text-sm relative madrasah-result  }`}>
+        <div className={` bg-white p-4 text-sm relative madrasah-result }`}>
           <MadrasahResultView
             result={result as MadrasahResult}
             examType={examType}

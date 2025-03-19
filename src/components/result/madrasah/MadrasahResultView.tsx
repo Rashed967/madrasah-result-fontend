@@ -28,10 +28,12 @@ export function MadrasahResultView({ result, examType, isLoading }: MadrasahResu
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full ">
       {/* Screen view */}
-      <div className="print:hidden">
-        <PrintButton isLoading={isLoading} onClick={handlePrint} />
+      <div className="print:hidden relative">
+        <div className='relative  md:absolute md:-top-32 md:right-0'>
+          <PrintButton isLoading={isLoading} onClick={handlePrint} />
+        </div>
         <MadrasahResultDisplay data={result} />
       </div>
 

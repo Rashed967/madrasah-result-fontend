@@ -13,7 +13,7 @@ const PrintButton = ({ contentRef }: PrintButtonProps) => {
     // content: (): HTMLElement | null => contentRef?.current, // 👈 টাইপ স্পষ্ট করে দাও
 
     onBeforePrint: () => {
-      // console.log('Printing...', contentRef.current);
+
       return Promise.resolve();
     },
     onAfterPrint: () => alert('Print successful!'),

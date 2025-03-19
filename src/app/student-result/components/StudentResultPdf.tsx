@@ -24,17 +24,16 @@ const GenerateStudentResultPdf = () => {
       if (dataLoaded.current) return;
 
       const savedData = localStorage.getItem('studentResultData');
-      console.log('Saved Data:', savedData);
 
       if (!savedData) {
-        console.log('No data found, redirecting back...');
+
         router.back();
         return;
       }
 
       try {
         const parsedData = JSON.parse(savedData);
-        console.log('Parsed Data:', parsedData);
+
 
         if (!parsedData.result || !parsedData.examType) {
           throw new Error('Invalid data structure');
@@ -44,7 +43,7 @@ const GenerateStudentResultPdf = () => {
         setIsLoading(false);
         dataLoaded.current = true;
       } catch (error) {
-        console.error('Error loading result:', error);
+
         router.back();
       }
     };
@@ -58,7 +57,7 @@ const GenerateStudentResultPdf = () => {
     };
   }, []);
 
-  console.log(resultData);
+
 
   if (isLoading) {
     return (

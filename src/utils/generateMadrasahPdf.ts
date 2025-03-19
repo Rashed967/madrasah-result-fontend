@@ -6,7 +6,7 @@ import { currentBanglaDate } from '@/utils/currentBannglaDate';
 
 
 export const generateMadrasahPdf = async (result: MadrasahResult, examType: string) => {
-  console.log('PDF generation result:', result);
+
   try {
     const printContent = generateMadrasahPrintContent(result, examType);
 
@@ -41,7 +41,7 @@ export const generateMadrasahPdf = async (result: MadrasahResult, examType: stri
     });
 
   } catch (error) {
-    console.error('Print error:', error);
+
     throw error;
   }
 };
@@ -49,7 +49,7 @@ export const generateMadrasahPdf = async (result: MadrasahResult, examType: stri
 
 
 const generateMadrasahPrintContent = (result: MadrasahResult, examType: string) => {
-  // console.log(result)
+
   return `
     <div style="padding: 0px 0px; font-family: 'Kalpurush', Arial, sans-serif;">
      

@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { currentBanglaDate } from '@/utils/currentBannglaDate';
 
 export const generateStudentPdf = async (result: StudentResult, examType: string) => {
-  console.log('PDF generation result:', result);
+
   try {
     const printContent = generatePrintContent(result, examType);
 

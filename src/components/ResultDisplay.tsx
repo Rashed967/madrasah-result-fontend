@@ -27,7 +27,7 @@ interface ResultDisplayProps {
 
 
 export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
-  console.log('Result object:', result);
+
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +44,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
   const handleStudentPdfDownload = async () => {
     if ('resultsByClass' in result) {
-      console.error('Cannot generate student PDF for madrasah result');
+
       return;
     }
 
@@ -53,7 +53,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
 
       await generateStudentPdf(result, examType);
     } catch (error) {
-      console.error('PDF generation error:', error);
+
     }
     setIsLoading(false);
   };
@@ -64,7 +64,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
       setIsLoading(true);
       await generateMadrasahPdf(result as MadrasahResult, examType);
     } catch (error) {
-      console.error('Error:', error);
+
       alert('প্রিন্ট করতে সমস্যা হয়েছে');
     } finally {
       setIsLoading(false);
@@ -85,7 +85,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
   return (
     <div ref={contentRef} className='result-container text-sm relative'>
 
-      <div className='mb-8 border-b pb-4'>
+      <div className='mb-8 border-b pb-4 print:hidden'>
         <div className='flex items-center justify-center gap-6 md:gap-8'>
           <img
             src='/images/logo.jpg'
@@ -99,21 +99,7 @@ export function ResultDisplay({ result, examType, searchType }: ResultDisplayPro
           </div>
         </div>
       </div>
-      <div className='print-header hidden print:block'>
-        <div className='print-header-logo print:hidden'>
-          <img
-            src='/images/logo.jpg'
-            alt='logo'
-            width={75}
-            height={75}
-          />
-        </div>
-        <div className='print-header-content'>
-          <h1>জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
-          <h3>(বেফাকুল মাদারিসিদ্দীনিয়্যা বাংলাদেশ)</h3>
-          <p>অস্থায়ী কার্যালয়: ৩৪১/৫ টি ভি রোড, পূর্ব রামপুরা, ঢাকা-১২১৯</p>
-        </div>
-      </div>
+
       <div>
         <h1 className='exam-name hidden print:block text-xl font-bold text-center mb-3'>
           {examType}

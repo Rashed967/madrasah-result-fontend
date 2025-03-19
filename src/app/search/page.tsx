@@ -95,7 +95,7 @@ export default function SearchPage() {
           };
 
       const response = await searchResult(payload);
-      console.log(response.data);
+
 
       if (response.success && response.data) {
         setResult(response.data);
@@ -104,7 +104,6 @@ export default function SearchPage() {
           setStudents([response.data as StudentResult]);
         }
       } else {
-        console.log(response.message);
         setErrorMessage(response.message || 'কোনো ফলাফল পাওয়া যায়নি');
       }
     } catch (_error: any) {

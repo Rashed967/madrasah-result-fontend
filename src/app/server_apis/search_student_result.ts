@@ -12,7 +12,7 @@ export async function searchResult(request: SearchRequest) {
 
   try {
     const { searchType, examType, registrationNo, rollNo, marhalah, madrasahCode, mobileNo } = request;
-    console.log(request);
+
 
     if (searchType === 'individual') {
       const response = await fetch(
@@ -31,7 +31,7 @@ export async function searchResult(request: SearchRequest) {
         },
       );
 
-      console.log(response);
+
       if (!response.ok) {
         throw new Error(`Backend responded with status: ${response.status}`);
       }
@@ -67,7 +67,7 @@ export async function searchResult(request: SearchRequest) {
 
     throw new Error('Invalid search type');
   } catch (error) {
-    console.error('Error:', error);
+
     return {
       success: false,
       error: 'দুঃখিত, কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।',

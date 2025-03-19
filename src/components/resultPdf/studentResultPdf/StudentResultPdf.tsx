@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
 
 // PDF Document Component
 export const MyDocument = () => (
-  console.log(result),
+
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>

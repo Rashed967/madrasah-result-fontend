@@ -2,6 +2,7 @@
 
 import { StudentResult } from '@/types/student';
 import { toBengaliNumber } from '@/lib/utils';
+import { format } from 'date-fns';
 
 export const generateStudentPdf = async (result: StudentResult, examType: string) => {
   console.log('PDF generation result:', result);
@@ -36,7 +37,10 @@ export const generateStudentPdf = async (result: StudentResult, examType: string
 
 // Helper function to generate print content
 const generatePrintContent = (result: StudentResult, examType: string) => {
-  // console.log(result)
+  const today = new Date();
+  const formattedDate = format(today, 'dd/MM/yyyy');
+  const bengaliDate = toBengaliNumber(formattedDate);
+
   return `
     <div style=" font-family: 'Kalpurush', Arial, sans-serif;">
       <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #000;  position: relative ">
@@ -121,13 +125,16 @@ const generatePrintContent = (result: StudentResult, examType: string) => {
       </tbody>
     </table>
 
-      <div style="text-align: center; width: 180px; position: absolute; right: 0; bottom: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2px;">
-        <img src="/images/signature.jpg" alt="signature" style="width: 65px; margin-bottom: 2px; transform: rotate(-3deg);" />
+      <div style="text-align: center; width: 180px; position: absolute; right: 0; bottom: 20px;">
+        <img src="/images/signature.jpg" alt="signature" style="width: 65px;  margin-left: auto; margin-right: auto; transform: rotate(-3deg); translate: 0 11px;" />
         <p style="margin: 0; font-size: 14px;  text-align: center;">
           পরীক্ষা নিয়ন্ত্রক
         </p>
-        <p style="margin-top: 1px; padding-top: 1px; border-top: 1px solid #000; font-size: 13px; text-align: center;">
+        <p style="margin: 0; font-size: 13px; border-top: 1px solid #000; padding-top: 1px; text-align: center; display: inline-block;">
           (মাওলানা ফয়সাল উমর ফারুক)
+        </p>
+        <p style="margin: 0; font-size: 12px; text-align: center;">
+          তারিখ: ${bengaliDate}ঈ.
         </p>
       </div>
     </div>

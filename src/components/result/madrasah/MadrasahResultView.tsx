@@ -43,7 +43,7 @@ export function MadrasahResultView({ result, examType, isLoading }: MadrasahResu
           <div key={index} className={`print-view ${index < Object.entries(result.resultsByClass).length - 1 ? 'print:break-after-page' : ''
             }`}>
             {/* Header */}
-            <div className="border-b border-black pb-2 mb-4 relative">
+            <div className="border-b border-black pb-2 mb-4 relative py-4">
               <img src="/images/logo.jpg" alt="logo" className="w-[100px] h-[100px] absolute left-0 top-[20px]" />
               <div className="text-center">
                 <h1 className="text-2xl font-bold m-0">জাতীয় দ্বীনি মাদরাসা শিক্ষাবোর্ড বাংলাদেশ</h1>
@@ -54,7 +54,7 @@ export function MadrasahResultView({ result, examType, isLoading }: MadrasahResu
               </div>
 
               {/* Division Layout */}
-              <div className=" border border-black p-[2px] px-1.5 text-[14px] absolute right-0 bottom-[20px] w-[210px] ">
+              <div className=" border border-black p-[2px] px-1.5 text-[14px] absolute right-0 bottom-[15px] w-[210px] ">
                 <div className="text-center border-b border-black mb-1.5">বিভাগ বিন্যাস</div>
 
                 <div className="px-1">

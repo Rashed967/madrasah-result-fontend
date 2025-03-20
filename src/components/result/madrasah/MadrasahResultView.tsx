@@ -15,13 +15,13 @@ interface MadrasahResultViewProps {
 
 export function MadrasahResultView({ result, examType, isLoading }: MadrasahResultViewProps) {
 
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-        @page { size: A4 landscape !important; margin: 12mm 10mm !important; }
-      `;
-    document.head.appendChild(style);
-  }, []);
+  // useEffect(() => {
+  //   const style = document.createElement("style");
+  //   style.innerHTML = `
+  //       @page { size: A4 landscape !important; margin: 12mm 10mm !important; }
+  //     `;
+  //   document.head.appendChild(style);
+  // }, []);
   const handlePrint = () => {
 
     window.print();

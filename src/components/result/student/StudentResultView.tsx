@@ -18,16 +18,15 @@ interface StudentResultViewProps {
 
 export function StudentResultView({ result, examType, isLoading }: StudentResultViewProps) {
 
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-        @page { size: A4 portrait !important; margin: 12mm 10mm !important; }
-      `;
-    document.head.appendChild(style);
-  }, []);
-  const handlePrint = () => {
-
-    window.print();
+  // useEffect(() => {
+  //   const style = document.createElement("style");
+  //   style.innerHTML = `
+  //       @page { size: A4 portrait  !important; margin: 12mm 10mm !important; }
+  //     `;
+  //   document.head.appendChild(style);
+  // }, [examType]);
+  const handlePrint = async () => {
+    await new Promise(resolve => setTimeout(window.print, 1500));
   };
 
   return (

@@ -15,7 +15,7 @@ interface ResultDisplayProps {
 
 export function ResultDisplay({ result, examType, searchType }: ResultDisplayProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const style = document.createElement("style");
+
 
   if (isLoading) {
     return (

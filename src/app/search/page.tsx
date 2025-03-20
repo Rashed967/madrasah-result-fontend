@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Search } from 'lucide-react';
+import { DownloadIcon, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 import { ErrorMessage } from '@/components/ErrorMessage';
@@ -16,6 +16,7 @@ import { StudentResult, StudentApiResponse } from '@/types/student';
 import { ResultDisplay } from '@/components/ResultDisplay';
 import { getAllSheets } from '@/server_apis/get_all_sheets';
 import { searchResult } from '@/server_apis/search_student_result';
+import clsx from 'clsx';
 
 interface ApiResponse {
   success: boolean;
@@ -105,10 +106,27 @@ export default function SearchPage() {
     setResult(null);
   };
 
+
+  const handleDownlaodPdf = () => {
+    const downloadUrl = "https://drive.google.com/uc?export=download&id=1VxYE5r5-mWjZBsxXMHNsdpSq43n5Yuba";
+    window.location.href = downloadUrl;
+  }
+
   return (
     <>
       <div className='min-h-screen bg-gray-100 py-8 print:py-0 font-kalpurush px-2'>
+
         <div className='mx-auto max-w-4xl print:max-w-full rounded-lg bg-white p-3 print:p-0 md:p-6  shadow-lg'>
+          <button
+            onClick={handleDownlaodPdf}
+            className={clsx(
+              'px-4 py-2 rounded-lg text-sm relative mb-4 right-0; top-0; flex items-center justify-center gap-2 bg-yellow-800 text-white ',
+
+            )}
+          >
+            <DownloadIcon className='w-4 h-4' />
+            মেধা তালিকা
+          </button>
           {showResult ? (
             <>
               <button

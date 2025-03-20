@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  trailingSlash: true, // Static Routing ফিক্স করবে
+  // output: 'export',
+  // trailingSlash: true, // Static Routing ফিক্স করবে
   // basePath: process.env.NODE_ENV === 'production' ? '/test2' : '',
 
   reactStrictMode: true,

@@ -1,25 +1,23 @@
+
+
 import { Metadata } from 'next';
 import Link from 'next/link';
 import * as React from 'react';
-import { RiAlarmWarningFill } from 'react-icons/ri';
-
 export const metadata: Metadata = {
   title: 'Not Found',
 };
 
 export default function NotFound() {
   return (
-    <main>
-      <section className='bg-white'>
-        <div className='layout flex min-h-screen flex-col items-center justify-center text-center text-black'>
-          <RiAlarmWarningFill
-            size={60}
-            className='drop-shadow-glow animate-flicker text-red-500'
-          />
-          <h1 className='mt-8 text-4xl md:text-6xl'>Page Not Found</h1>
-          <Link href='/'>Back to home</Link>
-        </div>
-      </section>
-    </main>
+    <div className="min-h-screen flex flex-col items-center justify-center font-kalpurush">
+      <h2 className="text-2xl font-bold mb-4">পেজটি পাওয়া যায়নি!</h2>
+      <p className="text-gray-600 mb-4">দুঃখিত, আপনি যে পেজটি খুঁজছেন তা পাওয়া যায়নি।</p>
+      <Link
+        href="/search"
+        className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+      >
+        হোম পেজে ফিরে যান
+      </Link>
+    </div>
   );
 }

@@ -14,8 +14,8 @@ import { SubmitButton } from '@/components/SubmitButton';
 import { MadrasahApiResponse, MadrasahResult } from '@/types/madrasah';
 import { StudentResult, StudentApiResponse } from '@/types/student';
 import { ResultDisplay } from '@/components/ResultDisplay';
-import { getAllSheets } from '@/app/server_apis/get_all_sheets';
-import { searchResult } from '@/app/server_apis/search_student_result';
+import { getAllSheets } from '@/server_apis/get_all_sheets';
+import { searchResult } from '@/server_apis/search_student_result';
 
 interface ApiResponse {
   success: boolean;

@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -14,8 +13,6 @@ import { SearchTypeToggle } from '@/components/SearchTypeToggle';
 import { SubmitButton } from '@/components/SubmitButton';
 import { MadrasahApiResponse, MadrasahResult } from '@/types/madrasah';
 import { StudentResult, StudentApiResponse } from '@/types/student';
-import StudentResultPdf from '@/components/resultPdf/studentResultPdf/StudentResultPdf';
-import { PDFDownloadLink } from '@react-pdf/renderer';
 import { ResultDisplay } from '@/components/ResultDisplay';
 import { getAllSheets } from '@/app/server_apis/get_all_sheets';
 import { searchResult } from '@/app/server_apis/search_student_result';

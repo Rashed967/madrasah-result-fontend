@@ -8,8 +8,12 @@ const nextConfig = {
   swcMinify: true,
 
   experimental: {
-    esmExternals: 'loose', // ESM প্যাকেজ গুলো লুজ মোডে কনভার্ট করবে
-    serverActions: true,
+    // Remove esmExternals as it's causing issues
+    // esmExternals: 'loose',
+    // Update serverActions to be an object instead of boolean
+    serverActions: {
+      bodySizeLimit: '2mb'
+    },
   },
   transpilePackages: ['@react-pdf/renderer'], // ESM প্যাকেজকে ট্রান্সপাইল করবে
 
@@ -66,6 +70,16 @@ const nextConfig = {
 
   images: {
     unoptimized: true,
+  },
+
+  async redirects() {
+    return [
+      {
+        source: '/dashboard',
+        destination: '/',
+        permanent: false,
+      },
+    ];
   },
 };
 

@@ -39,7 +39,6 @@ export default function SearchPage() {
   const [result, setResult] = useState<StudentResult | MadrasahResult | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-  const [examTypes, setExamTypes] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [students, setStudents] = useState<StudentResult[]>([]);
   const marhalahTypes = [
@@ -55,21 +54,18 @@ export default function SearchPage() {
     'ইলমুত তাজবীদ ওয়াল কিরাআত',
   ];
 
-  useEffect(() => {
-    const fetchExamTypes = async () => {
-      try {
-        const response = await getAllSheets();
+  const examTypes = [
+    "৯ম মারকাযী পরীক্ষা-১৪৪৬ হিজরী/২০২৫ঈসায়ী",
+    "৮ম মারকাযী পরীক্ষা-১৪৪৫হিজরী/২০২৪ঈসায়ী",
+    "৭ম মারকাযী পরীক্ষা-১৪৪৪হিজরী/২০২৩ঈসায়ী",
+    "৬ষ্ঠ মারকাযী পরীক্ষা-১৪৪৩হিজরী/২০২২ঈসায়ী",
+    "৫ম মারকাযী পরীক্ষা-১৪৪২হিজরী/২০২১ঈসায়ী",
+    "৪র্থ মারকাযী পরীক্ষা-১৪৪১হিজরী/২০২০ঈসায়ী",
+    "৩য় মারকাযী পরীক্ষা-১৪৪০ হিজরী/২০১৯ঈসায়ী",
+    "২য় মারকাযী পরীক্ষা-১৪৩৯হিজরী/২০১৮ঈসায়ী",
+    "১ম মারকাযী পরীক্ষা-১৪৩৮হিজরী/২০১৭ঈসায়ী"
+  ];
 
-        if (response.success) {
-          setExamTypes(response.data);
-        }
-      } catch (_error) {
-        // Handle error if needed
-      }
-    };
-
-    fetchExamTypes();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

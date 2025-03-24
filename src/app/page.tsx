@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import '@/lib/env';
+import { useRouter } from 'next/navigation';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
@@ -15,6 +16,13 @@ import ButtonLink from '@/components/links/ButtonLink';
 
 
 export default function HomePage() {
+  const router = useRouter();
+
+  React.useEffect(() => {
+    // Prevent any automatic redirects
+    router.prefetch('/search');
+  }, [router]);
+
   return (
     <main>
       {/* just logo name and reuslt page link with button */}

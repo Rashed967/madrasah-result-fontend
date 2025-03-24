@@ -53,8 +53,6 @@ export function MadrasahResultDisplay({ data }: { data: MadrasahResult, }) {
                 </thead>
                 <tbody>
                   {students.map((student, index) => {
-                    const totalSubjects = Object.keys(student.marks).length;
-                    const avarageMarks = toBengaliNumber((Number(toEnglishNumber(student.totalMarks)) / totalSubjects).toFixed(2));
 
                     return (
                       <tr key={student.registrationNo} className="hover:bg-gray-50">
@@ -66,9 +64,7 @@ export function MadrasahResultDisplay({ data }: { data: MadrasahResult, }) {
                           <td key={subject} className="border p-2 text-center">{toBengaliNumber(mark)}</td>
                         ))}
                         <td className="border p-2 text-center">{toBengaliNumber(student.totalMarks)}</td>
-                        <td className="border p-2 text-center">{
-                          avarageMarks
-                        }</td>
+                        <td className="border p-2 text-center">{toBengaliNumber(student.average)}</td>
                         <td className="border p-2">{toBengaliNumber(student.division)}</td>
                         <td className="border p-2">{toBengaliNumber(student.rank)}</td>
 

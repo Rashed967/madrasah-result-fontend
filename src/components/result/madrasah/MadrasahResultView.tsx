@@ -132,17 +132,25 @@ export function MadrasahResultView({ result, examType, isLoading }: MadrasahResu
 
             {/* Footer */}
             {/* conditionally add print:break-after-page */}
-            <div className="relative mt-2 pb-3 h-32 ">
+            {/* old code  
+             h-32 
+             
+             signature div---
+             absolute right-0 top-5
+             */}
+            <div className="relative mt-2 pb-3 h-auto print:break-inside-avoid">
               <div className="max-w-[80%]">
                 <p className="text-sm">
                   <span className="font-bold">বি:দ্র:</span> এ ফলাফল পত্রে কোনো ত্রুটি-বিচ্যুত বা অসংগতি পরিলক্ষিত হলে অথবা কোনো আপত্তি থাকলে তা নিরসনের জন্য এবং নযরে সানীর প্রয়োজন মন করলে প্রতি বিষয়ে মারহালার সমপরিমাণ ফি-সহ যথাযথ কর্তৃপক্ষের মাধ্যমে আগামী ৩০ শাওয়াল এর মধ্যে যথা নিয়মে পরীক্ষা নিয়ন্ত্রণ বিভাগ বরাবর লিখিতভাবে আবেদন করতে হবে।
                 </p>
               </div>
-              <div className="absolute right-0 top-5 text-center">
+              <div className='flex justify-end'>
+              <div className=" text-center">
                 <img src="/images/signature.jpg" alt="signature" className="w-16 -rotate-3 mx-auto" />
                 <p className="m-0 pb-px">পরীক্ষা নিয়ন্ত্রক</p>
                 <p className="m-0 border-t border-black pt-px">মাওলানা ফয়সাল উমর ফারুক</p>
                 <p className="m-0 text-xs">তারিখ: {currentBanglaDate()}ঈ.</p>
+              </div>
               </div>
             </div>
           </div>

@@ -8,7 +8,7 @@ export interface StudentResult {
   madrasahCode: string;
   class: string;
   division: string;
-  examineeType?: string;
+  applicationType?: string;
   marks: {
     [key: string]: number;
   };

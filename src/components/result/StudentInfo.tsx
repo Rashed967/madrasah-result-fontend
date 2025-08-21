@@ -7,6 +7,7 @@ interface StudentInfoProps {
 }
 
 export function StudentInfo({ result }: StudentInfoProps) {
+  console.log('StudentInfo result:', result);
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 print:grid-cols-2 gap-0 mb-6 student-info-container'>
       {/* First Column */}
@@ -20,7 +21,7 @@ export function StudentInfo({ result }: StudentInfoProps) {
       <InfoRow label='পিতার নাম' value={result.fatherName} />
       <InfoRow label='জন্ম তারিখ' value={result.dateOfBirth} />
       <InfoRow label='প্রাপ্ত বিভাগ' value={result.division} />
-      <InfoRow label='পরীক্ষার্থীর ধরণ' value={result.examineeType || 'নিয়মিত'} />
+      <InfoRow label='আবেদনের ধরণ' value={result?.applicationType || 'নিয়মিত'} />
       <InfoRow
         label='মেধা স্থান'
         value={toBengaliNumber(result.rank || '-')}
